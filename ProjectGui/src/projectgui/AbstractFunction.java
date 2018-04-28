@@ -5,6 +5,8 @@
  */
 package projectgui;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author compac
@@ -14,5 +16,6 @@ public abstract class AbstractFunction {
         abstract public void add();
         abstract public void update();
         abstract public void remove();
+     
     
 }

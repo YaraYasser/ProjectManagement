@@ -5,9 +5,11 @@
  */
 package my.gui;
 
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import projectgui.Department;
 import projectgui.DepartmentFactory;
+import projectgui.FileFacade;
 import projectgui.Project;
 
 /**
@@ -40,9 +42,9 @@ public class management_task extends javax.swing.JFrame {
         Txt_Project_Id = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         comobox_Department = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton_Add = new javax.swing.JButton();
+        jButton_Update = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -55,6 +57,7 @@ public class management_task extends javax.swing.JFrame {
         label_picture = new javax.swing.JLabel();
         lang = new javax.swing.JLabel();
         setlang = new javax.swing.JLabel();
+        jButton_TaskManagement = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,24 +73,24 @@ public class management_task extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Add.setText("ADD");
+        jButton_Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_AddActionPerformed(evt);
             }
         });
 
-        jButton2.setText("UPDATE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Update.setText("UPDATE");
+        jButton_Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton_UpdateActionPerformed(evt);
             }
         });
 
-        jButton3.setText("DELETE");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Delete.setText("DELETE");
+        jButton_Delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_DeleteActionPerformed(evt);
             }
         });
 
@@ -110,6 +113,13 @@ public class management_task extends javax.swing.JFrame {
         lang.setText(" This language is  : ");
 
         setlang.setText("jLabel7");
+
+        jButton_TaskManagement.setText("See Task Board");
+        jButton_TaskManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_TaskManagementActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,9 +156,9 @@ public class management_task extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(27, 27, 27)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(9, 9, 9)
                                                 .addComponent(comobox_Department, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -161,7 +171,9 @@ public class management_task extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addComponent(jButton_TaskManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
                 .addComponent(label_picture, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -200,19 +212,23 @@ public class management_task extends javax.swing.JFrame {
                             .addComponent(setlang)
                             .addComponent(lang))
                         .addGap(100, 100, 100)
-                        .addComponent(jButton1)
+                        .addComponent(jButton_Add)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jButton_Update)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton_Delete)))
                 .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label_picture, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_TaskManagement)
+                .addGap(78, 78, 78))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -268,38 +284,41 @@ public class management_task extends javax.swing.JFrame {
         
     }//GEN-LAST:event_comobox_DepartmentActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
         // TODO add your handling code here:
         String department = comobox_Department.getSelectedItem().toString();
-        Project Pobject=new  Project(Txt_Project_Id,Txt_projectName,department,Txt_projectTask,Txt_Project_desc );
+        Project Pobject=new  Project(Txt_Project_Id.getText(),Txt_projectName.getText(),department,Txt_projectTask.getText(),Txt_Project_desc.getText());
         Pobject.add();
         String t1=Txt_Project_Id.getText();
         String t2=Txt_projectName.getText();
       //  CoreFunGUI obj =new CoreFunGUI(t1 ,t2);
         //obj.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_AddActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    private void jButton_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformed
+        
          String department = comobox_Department.getSelectedItem().toString();
-        Project Pobject=new  Project(Txt_Project_Id,Txt_projectName,department,Txt_projectTask,Txt_Project_desc );
-        Pobject.update();
-        String t1=Txt_Project_Id.getText();
-        String t2=Txt_projectName.getText();
-         //CoreFunGUI obj =new CoreFunGUI(t1 ,t2);
-       // obj.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Project PobjectObj=new  Project(Txt_Project_Id.getText(),Txt_projectName.getText(),department,Txt_projectTask.getText(),Txt_Project_desc.getText());
+        PobjectObj.getDataOfSpecificProject(Txt_Project_Id.getText());
+        PobjectObj.update();
+        
+        
+    }//GEN-LAST:event_jButton_UpdateActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
         // TODO add your handling code here:
           String department = comobox_Department.getSelectedItem().toString();
-        Project Pobject=new  Project(Txt_Project_Id,Txt_projectName,department,Txt_projectTask,Txt_Project_desc );
+        Project Pobject=new  Project(Txt_Project_Id.getText(),Txt_projectName.getText(),department,Txt_projectTask.getText(),Txt_Project_desc.getText());
         Pobject.remove();
-        String t1=Txt_Project_Id.getText();
-        String t2=Txt_projectName.getText();
-        Admin obj =new Admin();
+       
+    }//GEN-LAST:event_jButton_DeleteActionPerformed
+
+    private void jButton_TaskManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TaskManagementActionPerformed
+       
+       Admin obj =new Admin();
        obj.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_jButton_TaskManagementActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,9 +361,10 @@ public class management_task extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_projectName;
     private javax.swing.JTextArea Txt_projectTask;
     private javax.swing.JComboBox comobox_Department;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
+    private javax.swing.JButton jButton_TaskManagement;
+    private javax.swing.JButton jButton_Update;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

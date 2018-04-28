@@ -3,18 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/my/gui/RegisterationFactory.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/my/gui/GUI.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/my/gui/CoreFunGUI.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/NormalMember.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/Member.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/Projectmanager.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/TaskSwitchController.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/my/gui/Admin.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/FileFacade.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/MemberFactory.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/RealRegisteration.java</file>
-            <file>file:/home/yara/Documents/4year/OODP/ProjectGui/src/projectgui/ProxiRegistration.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/my/gui/Admin.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/my/gui/management_task.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/projectgui/FileFacade.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/projectgui/Project.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/projectgui/Member.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/projectgui/Proxi.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/my/gui/CoreFunGUI.java</file>
+            <file>file:/home/yara/Documents/4year/OODP/Project/ProjectGui/src/projectgui/Task.java</file>
         </group>
     </open-files>
 </project-private>

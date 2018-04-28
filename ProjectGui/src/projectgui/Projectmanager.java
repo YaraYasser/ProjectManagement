@@ -4,31 +4,14 @@
  * and open the template in the editor.
  */
 package projectgui;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.StandardOpenOption.APPEND;
-import projectgui.Task;
-import projectgui.Project;
-import projectgui.Member;
-import projectgui.Department;
 import java.util.ArrayList;
-import javax.swing.JTextField;
 
-/**
- *C:\\Users\\compac\\Desktop\\
- * @author DELL_PC
- */
 public class Projectmanager extends Member{
-    Project p;
+    Project projectObject;
     Department D;
     ArrayList<Member>member=new ArrayList<>();
-      
+         String ManagerFilePath = "/home/yara/Documents/4year/OODP/Project/Manager.txt";
+ 
      private Projectmanager(){
      
      }
@@ -41,37 +24,49 @@ public class Projectmanager extends Member{
     }       
     
     public void createproject(){
-        p= new Project();
+        projectObject = new Project();
     }
     public void createtask(){
-        t= new Task();
+        ParentTaskObject = new Task();
     }
 
     @Override
     public void add() {
        ArrayList<String> Lines = new ArrayList<String>();
-  
-        String Frist_Name =ParentFirstName.getText();
-       String Last_Name =ParentLastName.getText();
-       String email =ParentEmail.getText();
-       String phone =ParentPhone.getText();
-       String password =ParentPassword.getText();
+       String ID = ParentID; 
+       String Frist_Name =ParentFirstName;
+       String Last_Name =ParentLastName;
+       String email =ParentEmail;
+       String phone =ParentPhone;
+       String password =ParentPassword;
+       Lines.add(ID);
        Lines.add(Frist_Name);
        Lines.add(Last_Name);
        Lines.add(email);
        Lines.add(phone);
        Lines.add(password);
   
-        String FilePath = "/home/yara/Documents/4year/OODP/Manager.txt";
-     facadeObject.Add(FilePath,Lines);
+         facadeObject.Add(ManagerFilePath,Lines);
     
         
     }
 
     @Override
     public void update() {
-         facadeObject.UpdateFile("/home/yara/Documents/4year/OODP/Manager.txt", instance.ParentEmail.getText(), LocalChangedEmail.getText());
-          instance.ParentEmail =  LocalChangedEmail;     
+         ArrayList<String> LinesToBeUpdated = new ArrayList<String>();
+     LinesToBeUpdated.add(instance.ParentEmail);
+     LinesToBeUpdated.add(instance.ParentPhone);
+     LinesToBeUpdated.add(instance.ParentPassword);
+     
+     ArrayList<String> LinesUpdated = new ArrayList<String>();
+     LinesUpdated.add(instance.LocalChangedEmail);
+     LinesUpdated.add(instance.LocalChangedphone);
+     LinesUpdated.add(instance.LocalChangedPassword);
+     
+          facadeObject.UpdateFile(ManagerFilePath, LinesToBeUpdated, LinesUpdated);
+          instance.ParentEmail =  LocalChangedEmail;
+           instance.ParentPhone = instance.LocalChangedphone;
+           instance.ParentPassword = instance.LocalChangedPassword;
       }
 
     @Override
@@ -81,23 +76,24 @@ public class Projectmanager extends Member{
         }
         return true;    
     }
-
     @Override
-    public void setDataToBeUpdated(JTextField ChangedEmail) {
-  LocalChangedEmail = ChangedEmail;
+    public void setDataToBeUpdated(ArrayList<String> NewData) {
+    LocalChangedEmail = NewData.get(0);
+    LocalChangedphone = NewData.get(1);
+    LocalChangedPassword = NewData.get(2);
     }
 
     @Override
     public void remove() {
       
     ArrayList<String> linesToRemove = new ArrayList<String>();
-    linesToRemove.add(ParentFirstName.getText());
-    linesToRemove.add(ParentLastName.getText());
-    linesToRemove.add(ParentEmail.getText());
-    linesToRemove.add(ParentPhone.getText());
-    linesToRemove.add(ParentPassword.getText());
+    linesToRemove.add(ParentFirstName);
+    linesToRemove.add(ParentLastName);
+    linesToRemove.add(ParentEmail);
+    linesToRemove.add(ParentPhone);
+    linesToRemove.add(ParentPassword);
    
-    facadeObject.remove("/home/yara/Documents/4year/OODP/Manager.txt",linesToRemove);
+    facadeObject.remove(ManagerFilePath,linesToRemove);
     }
     
 }

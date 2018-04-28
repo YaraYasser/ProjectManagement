@@ -5,7 +5,7 @@
  */
 package projectgui;
 
-import javax.swing.JTextField;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,12 +28,14 @@ public class NullMember extends Member{
      return true;
     }
 
-    @Override
-    public void setDataToBeUpdated(JTextField ChangedEmail) {
-    }
 
     @Override
     public void remove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setDataToBeUpdated(ArrayList<String> NewData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

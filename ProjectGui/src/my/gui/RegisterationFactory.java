@@ -12,14 +12,14 @@ import projectgui.*;
  * @author yara
  */
 public class RegisterationFactory {
-    JTextField MemberIDLocal;
-    JTextField FirstNameLocal;
-    JTextField LastNameLocal;
-    JTextField EmailLocal;
-    JTextField Phonelocal;
-    JTextField PasswordLocal;
+    String MemberIDLocal;
+    String FirstNameLocal;
+    String LastNameLocal;
+    String EmailLocal;
+    String Phonelocal;
+    String PasswordLocal;
     JRadioButton MemberType;
-    RegisterationFactory(JTextField MemberID,JTextField TxtBox_FirstName,JTextField TxtBox_LastName,JTextField TxtBox_Email,JTextField TxtBox_Phone,JTextField TxtBox_Password,JRadioButton Admin){
+    RegisterationFactory(String MemberID,String TxtBox_FirstName,String TxtBox_LastName,String TxtBox_Email,String TxtBox_Phone,String TxtBox_Password,JRadioButton Admin){
     MemberIDLocal = MemberID;
     FirstNameLocal = TxtBox_FirstName;
     LastNameLocal = TxtBox_LastName;
@@ -32,6 +32,6 @@ public class RegisterationFactory {
     if((FirstNameLocal.toString().isEmpty()) || (LastNameLocal.toString().isEmpty()) || (EmailLocal.toString().isEmpty()) || (Phonelocal.toString().isEmpty()) || (PasswordLocal.toString().isEmpty())){
     return new NullRegisteration();
     }
-    return new ProxiRegistration(MemberIDLocal,FirstNameLocal, LastNameLocal, EmailLocal, Phonelocal, PasswordLocal, MemberType);
+    return new Proxi(MemberIDLocal,FirstNameLocal, LastNameLocal, EmailLocal, Phonelocal, PasswordLocal, MemberType);
     }
 }

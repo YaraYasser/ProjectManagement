@@ -6,14 +6,7 @@
 package my.gui;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import projectgui.*;
 import projectgui.Task;
@@ -26,6 +19,11 @@ import projectgui.Task;
 public class CoreFunGUI extends javax.swing.JFrame
 {
   
+     TaskSwitchController SaveToUndo;
+     TaskSwitchController SaveLastUndoToRedo;
+     AbstractFunction AbstractObject;
+     String LastActionType = "";
+     String RedoType = "";
     String memberType = "NormalMember";
     /**
      * Creates new form 
@@ -34,47 +32,22 @@ public class CoreFunGUI extends javax.swing.JFrame
         
         
         initComponents();
-        
-      }
-      public CoreFunGUI(String s1,String s2){
-        ReadFromFile( s1, s2 );
-    
+        ShowMembersCurrentTasks();
       }
     
-    public void ReadFromFile(String ProjectIDParameter,String ProjectNameParameter ){
- //   Project_Id.setText("Project_ID : "+ProjectIDParameter);
-        //Project_name.setText("Project_Name : "+ProjectNameParameter);
-       // TextField_TaskID.setText(ProjectIDParameter);
-        String path ="/home/yara/Documents/4year/OODP/Task.txt"; 
-        File file =new  File(path);
-        ArrayList<String>Tableline=new ArrayList<>();
-        try {
-            BufferedReader br =new  BufferedReader(new FileReader(file));
-           DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
+   public void ShowMembersCurrentTasks(){
+   MemberFactory currentMember = new MemberFactory();
+   Member memberObject = currentMember.getmember();
+   FileFacade FileInterface = new FileFacade();
+   ArrayList<Task> tasks =  FileInterface.getMemberTasks(memberObject.getMemberID());
+   DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();
+       for (Task task : tasks) {
            
-         //   String tableline=br.readLine().trim();
-            String str ;
-            while((str =br.readLine())!=null)
-            {
-                
-                Tableline.add(str);
-            }
-            for (int i=0 ;i<Tableline.size();i++)
-            {
-               String line=Tableline.get(i).trim();
-               String[] datarow =line.split(",");
-                
-                model.addRow(datarow);              
-                
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CoreFunGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CoreFunGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    }
-
+        String str[]=new String[]{task.getTaskID(),task.getName(),task.getStartDate(),task.getEndDate(),task.getStatus(),task.getMemberID()};
+        model.addRow(str);
+      
+       }
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,8 +60,8 @@ public class CoreFunGUI extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonUndo = new javax.swing.JButton();
+        jButtonRedo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TextField_TaskName = new javax.swing.JTextField();
@@ -127,9 +100,16 @@ public class CoreFunGUI extends javax.swing.JFrame
         jButton8 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable_ShowTasks = new javax.swing.JTable();
         Button_ChangeInfo = new javax.swing.JButton();
-        TextField_NewInfo = new javax.swing.JTextField();
+        TextField_NewMObile = new javax.swing.JTextField();
+        TextField_NewEmail = new javax.swing.JTextField();
+        TextField_NewPassword = new javax.swing.JTextField();
+        Label_MemberNumber2 = new javax.swing.JLabel();
+        Label_MemberNumber3 = new javax.swing.JLabel();
+        Label_MemberNumber4 = new javax.swing.JLabel();
+        Label_MemberNumber5 = new javax.swing.JLabel();
+        Label_MemberNumber6 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,9 +126,19 @@ public class CoreFunGUI extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/redo.PNG"))); // NOI18N
+        jButtonUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/redo.PNG"))); // NOI18N
+        jButtonUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUndoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/undo.PNG"))); // NOI18N
+        jButtonRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/undo.PNG"))); // NOI18N
+        jButtonRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRedoActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 0, 0)));
 
@@ -212,45 +202,48 @@ public class CoreFunGUI extends javax.swing.JFrame
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Button_TaskAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(Button_TaskUpdate)
-                        .addGap(50, 50, 50)
-                        .addComponent(Button_TaskDelete)
-                        .addGap(71, 71, 71))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Label_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Label_MemberNumber1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelToDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TextFieldToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Label_FromDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Label_TaskName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextField_TaskName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TextField_TaskID, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
+                        .addComponent(Button_TaskAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(Button_TaskUpdate)
+                        .addGap(61, 61, 61)
+                        .addComponent(Button_TaskDelete)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Label_FromDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(TextFieldFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(132, 132, 132))
+                            .addComponent(Label_TaskName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(173, 173, 173))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TextField_TaskID, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Label_MemberNumber1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(LabelToDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TextFieldToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TextField_TaskName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Label_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(108, 108, 108)
+                                        .addComponent(TextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(307, 307, 307))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,23 +259,22 @@ public class CoreFunGUI extends javax.swing.JFrame
                     .addComponent(Label_TaskName)
                     .addComponent(TextField_TaskName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Label_FromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TextFieldToDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label_MemberNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Label_FromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextFieldFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addComponent(LabelToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextFieldToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_MemberNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_TaskAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_TaskUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,15 +435,15 @@ public class CoreFunGUI extends javax.swing.JFrame
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_ShowTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "TaskID", "TaskName", "Start_date", "End_date", "Status"
+                "TaskID", "TaskName", "Start_date", "End_date", "Status", "MemberID"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTable_ShowTasks);
 
         Button_ChangeInfo.setText("Change Your Information ");
         Button_ChangeInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -460,11 +452,33 @@ public class CoreFunGUI extends javax.swing.JFrame
             }
         });
 
-        TextField_NewInfo.addActionListener(new java.awt.event.ActionListener() {
+        TextField_NewMObile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextField_NewInfoActionPerformed(evt);
+                TextField_NewMObileActionPerformed(evt);
             }
         });
+
+        TextField_NewEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_NewEmailActionPerformed(evt);
+            }
+        });
+
+        TextField_NewPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_NewPasswordActionPerformed(evt);
+            }
+        });
+
+        Label_MemberNumber2.setText("Undo");
+
+        Label_MemberNumber3.setText("Email");
+
+        Label_MemberNumber4.setText("Password");
+
+        Label_MemberNumber5.setText("Mobile");
+
+        Label_MemberNumber6.setText("Redo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -472,61 +486,86 @@ public class CoreFunGUI extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(84, 84, 84)
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Label_MemberNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(186, 186, 186)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Label_MemberNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_MemberNumber4)
+                                    .addComponent(Label_MemberNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 214, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Button_ChangeInfo)
+                                .addGap(299, 299, 299))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TextField_NewMObile, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TextField_NewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TextField_NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addComponent(Label_MemberNumber6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(224, 224, 224))))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Button_ChangeInfo)
-                        .addGap(117, 117, 117))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TextField_NewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Label_MemberNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(Button_ChangeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TextField_NewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_MemberNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TextField_NewMObile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Label_MemberNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(21, 21, 21))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Button_ChangeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TextField_NewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TextField_NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_MemberNumber4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(Label_MemberNumber6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
 
         pack();
@@ -537,12 +576,11 @@ public class CoreFunGUI extends javax.swing.JFrame
     }//GEN-LAST:event_jCheckBoxCircleActionPerformed
 
     private void Button_TaskAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskAddActionPerformed
-        // TODO add your handling code here:
-        
-        Task TaskObject=new Task(TextField_TaskID,TextField_TaskName,TextFieldFromDate,TextFieldToDate,TextField_Status,TextField_MemberNumber);
+        LastActionType = "Add"; 
+        Task TaskObject=new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
         TaskObject.add();
-        DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
-        String str[]=new String[]{TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText()};
+        DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();
+        String str[]=new String[]{TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText()};
         model.addRow(str);
       
     }//GEN-LAST:event_Button_TaskAddActionPerformed
@@ -560,16 +598,21 @@ public class CoreFunGUI extends javax.swing.JFrame
     }//GEN-LAST:event_TextField_StatusActionPerformed
 
     private void Button_TaskUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskUpdateActionPerformed
-        // TODO add your handling code here:
-        Task TaskUpdateObject =new Task(TextField_TaskID,TextField_TaskName,TextFieldFromDate,TextFieldToDate,TextField_Status,TextField_MemberNumber);
+        LastActionType = "Update";     
+        Task TaskUpdateObject =new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
+        
         TaskUpdateObject.update();
         
     }//GEN-LAST:event_Button_TaskUpdateActionPerformed
 
     private void Button_TaskDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskDeleteActionPerformed
-        // TODO add your handling code here:
-        Task RemoveObject =new Task(TextField_TaskID,TextField_TaskName,TextFieldFromDate,TextFieldToDate,TextField_Status,TextField_MemberNumber);
-        RemoveObject.remove();
+        LastActionType = "Delete";
+        SaveToUndo = new TaskSwitchController(AbstractObject);       
+        AbstractObject =new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
+        AbstractObject.remove();
+        DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();  
+        int RowNumber = Integer.valueOf(TextField_TaskID.getText()) -1;
+        model.removeRow(RowNumber);      
         
     }//GEN-LAST:event_Button_TaskDeleteActionPerformed
 
@@ -585,17 +628,68 @@ public class CoreFunGUI extends javax.swing.JFrame
         this.getContentPane().setBackground(Color.blue);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void TextField_NewInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewInfoActionPerformed
+    private void TextField_NewMObileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewMObileActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TextField_NewInfoActionPerformed
+    }//GEN-LAST:event_TextField_NewMObileActionPerformed
 
     private void Button_ChangeInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChangeInfoActionPerformed
      // this design will be allways for normal members 
         MemberFactory memberFactor = new MemberFactory();
       Member memberObj = memberFactor.getmember(memberType);
-      memberObj.setDataToBeUpdated(TextField_NewInfo);
+         ArrayList<String> DataToUpdate= new ArrayList<String>();
+        DataToUpdate.add(TextField_NewEmail.getText());
+        DataToUpdate.add(TextField_NewMObile.getText());
+        DataToUpdate.add(TextField_NewPassword.getText());
+        
+      memberObj.setDataToBeUpdated(DataToUpdate);
       memberObj.update();
     }//GEN-LAST:event_Button_ChangeInfoActionPerformed
+
+    private void TextField_NewEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_NewEmailActionPerformed
+
+    private void TextField_NewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_NewPasswordActionPerformed
+
+    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
+                RemoteControl controller = new RemoteControl();
+        if(!LastActionType.isEmpty()){
+            if(LastActionType.equalsIgnoreCase("Add")){
+                Undo UndoObject = new Undo(SaveToUndo);
+                controller.setCommand(UndoObject);
+
+                RedoType = "Add";
+            }
+            else if(LastActionType.equalsIgnoreCase("delete")){
+                Redo redoObject = new Redo(SaveToUndo);
+                controller.setCommand(redoObject);
+                RedoType = "Delete";
+            }
+            controller.ButtonControl();
+            SaveLastUndoToRedo = SaveToUndo;
+        }
+
+
+    }//GEN-LAST:event_jButtonUndoActionPerformed
+
+    private void jButtonRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedoActionPerformed
+
+          RemoteControl controller = new RemoteControl();
+        if(!RedoType.isEmpty()){
+            if(RedoType.equalsIgnoreCase("delete")){
+                Undo UndoObject = new Undo(SaveToUndo);
+                controller.setCommand(UndoObject);
+            }
+            else{
+                Redo RedoObject = new Redo(SaveLastUndoToRedo);
+                controller.setCommand(RedoObject);
+            }
+            controller.ButtonControl();
+        }
+        
+    }//GEN-LAST:event_jButtonRedoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -652,19 +746,26 @@ public class CoreFunGUI extends javax.swing.JFrame
     private javax.swing.JLabel Label_FromDate;
     private javax.swing.JLabel Label_MemberNumber;
     private javax.swing.JLabel Label_MemberNumber1;
+    private javax.swing.JLabel Label_MemberNumber2;
+    private javax.swing.JLabel Label_MemberNumber3;
+    private javax.swing.JLabel Label_MemberNumber4;
+    private javax.swing.JLabel Label_MemberNumber5;
+    private javax.swing.JLabel Label_MemberNumber6;
     private javax.swing.JLabel Label_ResourceType;
     private javax.swing.JLabel Label_TaskName;
     private javax.swing.JTextField TextFieldFromDate;
     private javax.swing.JTextField TextFieldToDate;
     private javax.swing.JTextField TextField_MemberNumber;
-    private javax.swing.JTextField TextField_NewInfo;
+    private javax.swing.JTextField TextField_NewEmail;
+    private javax.swing.JTextField TextField_NewMObile;
+    private javax.swing.JTextField TextField_NewPassword;
     private javax.swing.JTextField TextField_Status;
     private javax.swing.JTextField TextField_TaskID;
     private javax.swing.JTextField TextField_TaskName;
     private javax.swing.JButton darkGray;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButtonRedo;
+    private javax.swing.JButton jButtonUndo;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JLabel jLabel1;
@@ -681,6 +782,6 @@ public class CoreFunGUI extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable_ShowTasks;
     // End of variables declaration//GEN-END:variables
 }

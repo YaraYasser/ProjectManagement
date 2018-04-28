@@ -5,14 +5,7 @@
  */
 package projectgui;
 
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.StandardOpenOption.APPEND;
-import javax.swing.JTextField;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -20,17 +13,18 @@ import javax.swing.JTextField;
  */
 public abstract class Member extends AbstractFunction{
     
-    protected  Task t;
+    protected  Task ParentTaskObject;
     public FileFacade facadeObject = new FileFacade();
-    protected JTextField ID;
-    protected JTextField ParentFirstName;
-    protected JTextField ParentLastName;
-    protected JTextField ParentEmail;
-    protected JTextField ParentPhone;
-    protected JTextField ParentPassword;
-    protected JTextField LocalChangedEmail;
+    protected String ParentID;
+    protected String ParentFirstName;
+    protected String ParentLastName;
+    protected String ParentEmail;
+    protected String ParentPhone;
+    protected String ParentPassword;
+    protected String LocalChangedEmail;
     protected String Department;
-    
+    protected String LocalChangedPassword;
+    protected String LocalChangedphone;
     public String MemberType; // is this the best way to save the member type???
     protected static Member instance;
     
@@ -38,14 +32,17 @@ public abstract class Member extends AbstractFunction{
     
     }
   
-    public void fillClassData(JTextField MemberIDEnteredData,JTextField FirstNameEnteredData,JTextField LastNameEnteredData,JTextField EmailEnteredData,JTextField PhoneEnteredData,JTextField LocalPassword,String type){
-    ID = MemberIDEnteredData;
+    public void fillClassData(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData,String EmailEnteredData,String PhoneEnteredData,String LocalPassword,String type){
+    ParentID = MemberIDEnteredData;
     ParentFirstName = FirstNameEnteredData;
     ParentLastName = LastNameEnteredData;
     ParentEmail = EmailEnteredData;
     ParentPhone = PhoneEnteredData;
     ParentPassword = LocalPassword;
     MemberType = type;
+    }
+    public String getMemberID(){
+    return ParentID;
     }
     @Override
     public abstract void add();
@@ -55,5 +52,5 @@ public abstract class Member extends AbstractFunction{
     public abstract boolean isNull();
     @Override
     public abstract void remove();
-     public abstract void setDataToBeUpdated(JTextField ChangedEmail);
+    public abstract void setDataToBeUpdated(ArrayList<String> NewData);
 }

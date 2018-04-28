@@ -20,6 +20,7 @@ import projectgui.Department;
 public class WebEng extends Department{
    String language;
     JLabel Name;
+    String WebImageIcon = "/home/yara/Documents/4year/OODP/Project/ProjectGui/web.png";
     public WebEng(JLabel Name)
     {
         this.Name=Name;
@@ -27,7 +28,7 @@ public class WebEng extends Department{
     @Override
     public void returnimage()
     {
-        ImageIcon icon=new ImageIcon("E:\\4th year\\2\\design pattern\\ProjectGui\\ProjectGui\\web.png");
+        ImageIcon icon=new ImageIcon(WebImageIcon);
         Name.setIcon(icon);
     }
 

@@ -5,14 +5,13 @@
  */
 package projectgui;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
  * @author yara
  */
-public class NullRegisteration extends registration{
+public class NullRegisteration implements registration{
 
        RealRegisteration realObj;
      ButtonGroup MemberType;
@@ -20,12 +19,12 @@ public class NullRegisteration extends registration{
     
     @Override
     public void setData() {
-      
+          throw new UnsupportedOperationException("set Data with null registeration"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean isNull() {
  return true;
     }
-    
+  
 }

@@ -24,7 +24,7 @@ public class Desktop extends Department{
     @Override
     public void returnimage()
     {
-        ImageIcon icon=new ImageIcon("/home/yara/Documents/4year/OODP/ProjectGui/desktop.jpg");
+        ImageIcon icon=new ImageIcon("/home/yara/Documents/4year/OODP/Project/desktop.jpg");
         Name.setIcon(icon);
     }
 

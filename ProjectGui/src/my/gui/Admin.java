@@ -5,6 +5,8 @@
  */
 package my.gui;
 
+import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import projectgui.*;
 
@@ -43,9 +45,9 @@ public class Admin extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton_AddTask = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton_DeleteTask = new javax.swing.JButton();
         jTextField_TaskID = new javax.swing.JTextField();
         jTextField_StartDate = new javax.swing.JTextField();
         jTextField_TaskName = new javax.swing.JTextField();
@@ -81,12 +83,20 @@ public class Admin extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButtonDeleteMyself = new javax.swing.JButton();
-        TextField_NewInfo = new javax.swing.JTextField();
+        TextField_NewEmail = new javax.swing.JTextField();
         Button_ChangeInfo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableForShowTasks = new javax.swing.JTable();
-        jButtonRedo = new javax.swing.JButton();
+        jTable_ShowTasks = new javax.swing.JTable();
+        jButton_getTaskMembers = new javax.swing.JButton();
+        TextField_NewPhone = new javax.swing.JTextField();
+        TextField_NewPassword = new javax.swing.JTextField();
         jButtonUndo = new javax.swing.JButton();
+        jButtonRedo = new javax.swing.JButton();
+        Label_MemberNumber2 = new javax.swing.JLabel();
+        Label_MemberNumber6 = new javax.swing.JLabel();
+        Label_MemberNumber3 = new javax.swing.JLabel();
+        Label_MemberNumber5 = new javax.swing.JLabel();
+        Label_MemberNumber4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,10 +117,10 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel9.setText("Number_Member");
 
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_AddTask.setText("ADD");
+        jButton_AddTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_AddTaskActionPerformed(evt);
             }
         });
 
@@ -121,10 +131,10 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("DELETE");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DeleteTask.setText("DELETE");
+        jButton_DeleteTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_DeleteTaskActionPerformed(evt);
             }
         });
 
@@ -158,11 +168,11 @@ public class Admin extends javax.swing.JFrame {
                                     .addComponent(jTextField_MemberNumber)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(jButton1)
+                        .addComponent(jButton_AddTask)
                         .addGap(39, 39, 39)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton_DeleteTask)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -193,16 +203,14 @@ public class Admin extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jTextField_MemberNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextField_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_AddTask)
+                    .addComponent(jButton2)
+                    .addComponent(jButton_DeleteTask))
+                .addGap(30, 30, 30))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 0, 0)));
@@ -375,13 +383,12 @@ public class Admin extends javax.swing.JFrame {
                                 .addComponent(jCheckBox1)
                                 .addGap(29, 29, 29)
                                 .addComponent(jCheckBox4))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jCheckBox2)
-                                .addComponent(jCheckBox3))))
+                            .addComponent(jCheckBox2)
+                            .addComponent(jCheckBox3)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jButton9)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,9 +431,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        TextField_NewInfo.addActionListener(new java.awt.event.ActionListener() {
+        TextField_NewEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextField_NewInfoActionPerformed(evt);
+                TextField_NewEmailActionPerformed(evt);
             }
         });
 
@@ -437,29 +444,53 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jTableForShowTasks.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_ShowTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "TaskID", "TaskName", "Start_date", "End_date", "Status"
+                "TaskID", "TaskName", "Start_date", "End_date", "Status", "MemberID"
             }
         ));
-        jScrollPane2.setViewportView(jTableForShowTasks);
+        jScrollPane2.setViewportView(jTable_ShowTasks);
 
-        jButtonRedo.setText("Redo");
-        jButtonRedo.addActionListener(new java.awt.event.ActionListener() {
+        jButton_getTaskMembers.setText("Get selected task members");
+        jButton_getTaskMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRedoActionPerformed(evt);
+                jButton_getTaskMembersActionPerformed(evt);
             }
         });
 
-        jButtonUndo.setText("Undo");
+        TextField_NewPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_NewPhoneActionPerformed(evt);
+            }
+        });
+
+        TextField_NewPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_NewPasswordActionPerformed(evt);
+            }
+        });
+
+        jButtonUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/redo.PNG"))); // NOI18N
         jButtonUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUndoActionPerformed(evt);
             }
         });
+
+        jButtonRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/gui/undo.PNG"))); // NOI18N
+
+        Label_MemberNumber2.setText("Undo");
+
+        Label_MemberNumber6.setText("Redo");
+
+        Label_MemberNumber3.setText("New Email");
+
+        Label_MemberNumber5.setText("New Mobile");
+
+        Label_MemberNumber4.setText("New Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -474,46 +505,92 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonRedo)
-                            .addComponent(jButtonUndo))
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonRedo)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Label_MemberNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(jButtonDeleteMyself))
+                                .addGap(31, 31, 31)
+                                .addComponent(jButton_getTaskMembers))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(249, 249, 249)
-                                .addComponent(TextField_NewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Button_ChangeInfo)))
-                        .addContainerGap(91, Short.MAX_VALUE))))
+                                .addGap(72, 72, 72)
+                                .addComponent(jButtonDeleteMyself)))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Label_MemberNumber3)
+                                .addGap(45, 45, 45)
+                                .addComponent(TextField_NewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Label_MemberNumber6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Label_MemberNumber5)
+                                    .addComponent(Label_MemberNumber4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TextField_NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(TextField_NewPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Button_ChangeInfo)))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonUndo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
-                        .addComponent(jButtonRedo))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Label_MemberNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonRedo)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDeleteMyself)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonDeleteMyself)
+                                    .addComponent(TextField_NewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Label_MemberNumber6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(Label_MemberNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Button_ChangeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TextField_NewPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_MemberNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jButton_getTaskMembers)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TextField_NewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Button_ChangeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TextField_NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_MemberNumber4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,80 +612,51 @@ public class Admin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonDeleteMyselfActionPerformed
 
-    private void TextField_NewInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewInfoActionPerformed
+    private void TextField_NewEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TextField_NewInfoActionPerformed
+    }//GEN-LAST:event_TextField_NewEmailActionPerformed
 
     private void Button_ChangeInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChangeInfoActionPerformed
         // this design will be allways for normal members
         MemberFactory memberFactor = new MemberFactory();
+           ArrayList<String> DataToUpdate= new ArrayList<String>();
+        DataToUpdate.add(TextField_NewEmail.getText());
+        DataToUpdate.add(TextField_NewPhone.getText());
+        DataToUpdate.add(TextField_NewPassword.getText());
         Member memberObj = memberFactor.getmember();
-        memberObj.setDataToBeUpdated(TextField_NewInfo);
+        memberObj.setDataToBeUpdated(DataToUpdate);
         memberObj.update();
     }//GEN-LAST:event_Button_ChangeInfoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_AddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddTaskActionPerformed
         LastActionType = "Add";   
-        AbstractObject=new Task(jTextField_TaskID,jTextField_TaskName,jTextField_StartDate,jTextField_EndDate,jTextField_Status,jTextField_MemberNumber);
+        AbstractObject=new Task(jTextField_TaskID.getText(),jTextField_TaskName.getText(),jTextField_StartDate.getText(),jTextField_EndDate.getText(),jTextField_Status.getText(),jTextField_MemberNumber.getText());
         AbstractObject.add();
         SaveToUndo = new TaskSwitchController(AbstractObject);
-        DefaultTableModel model=(DefaultTableModel)jTableForShowTasks.getModel();
-        String str[]=new String[]{jTextField_TaskID.getText(),jTextField_TaskName.getText(),jTextField_StartDate.getText(),jTextField_EndDate.getText(),jTextField_Status.getText()};
+        DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();
+        String str[]=new String[]{jTextField_TaskID.getText(),jTextField_TaskName.getText(),jTextField_StartDate.getText(),jTextField_EndDate.getText(),jTextField_Status.getText(),jTextField_MemberNumber.getText()};
         model.addRow(str);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_AddTaskActionPerformed
 
-    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
-       RemoteControl controller = new RemoteControl();
-       if(!LastActionType.isEmpty()){
-       if(LastActionType.equalsIgnoreCase("Add")){          
-       Undo UndoObject = new Undo(SaveToUndo);
-       controller.setCommand(UndoObject);
-       
-       RedoType = "Add";
-       }
-        else if(LastActionType.equalsIgnoreCase("delete")){
-        Redo redoObject = new Redo(SaveToUndo);
-        controller.setCommand(redoObject);
-        RedoType = "Delete";
-        }
-       controller.ButtonControl();
-       SaveLastUndoToRedo = SaveToUndo;
-       }
-        
-        
-        
-    }//GEN-LAST:event_jButtonUndoActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_DeleteTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteTaskActionPerformed
         LastActionType = "Delete";
         SaveToUndo = new TaskSwitchController(AbstractObject);       
-        AbstractObject =new Task(jTextField_TaskID,jTextField_TaskName,jTextField_StartDate,jTextField_EndDate,jTextField_Status,jTextField_MemberNumber);
+        AbstractObject =new Task(jTextField_TaskID.getText(),jTextField_TaskName.getText(),jTextField_StartDate.getText(),jTextField_EndDate.getText(),jTextField_Status.getText(),jTextField_MemberNumber.getText());
         AbstractObject.remove();
+        DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();  
+        int RowNumber = Integer.valueOf(jTextField_TaskID.getText()) -1;
+        model.removeRow(RowNumber);
+        
     
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton_DeleteTaskActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         LastActionType = "Update";     
-        AbstractObject =new Task(jTextField_TaskID,jTextField_TaskName,jTextField_StartDate,jTextField_EndDate,jTextField_Status,jTextField_MemberNumber);
+        AbstractObject =new Task(jTextField_TaskID.getText(),jTextField_TaskName.getText(),jTextField_StartDate.getText(),jTextField_EndDate.getText(),jTextField_Status.getText(),jTextField_MemberNumber.getText());
         AbstractObject.update();
         
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedoActionPerformed
-    RemoteControl controller = new RemoteControl();
-    if(!RedoType.isEmpty()){
-    if(RedoType.equalsIgnoreCase("delete")){
-       Undo UndoObject = new Undo(SaveToUndo);
-       controller.setCommand(UndoObject);
-    }
-    else{
-    Redo RedoObject = new Redo(SaveLastUndoToRedo);
-       controller.setCommand(RedoObject);  
-    }
-    controller.ButtonControl();
-    }
-    }//GEN-LAST:event_jButtonRedoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
      /*     LastActionType = "Add";   
@@ -623,6 +671,51 @@ public class Admin extends javax.swing.JFrame {
     private void jTextField_MemberIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_MemberIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_MemberIDActionPerformed
+
+    private void jButton_getTaskMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_getTaskMembersActionPerformed
+     
+        int row =jTable_ShowTasks.getSelectedRow();
+        String IDRow = String.valueOf(jTable_ShowTasks.getValueAt(row, 5));
+   
+      Task taskObject = new Task();
+      String MemberName = taskObject.getMembersNames(IDRow);
+      
+        final JFrame frameObjectToShowMemberName = new JFrame();
+         frameObjectToShowMemberName.add(jButton_getTaskMembers);
+        frameObjectToShowMemberName.pack();
+        frameObjectToShowMemberName.setVisible(true);
+
+           JOptionPane.showConfirmDialog(frameObjectToShowMemberName,MemberName);
+            
+    }//GEN-LAST:event_jButton_getTaskMembersActionPerformed
+
+    private void TextField_NewPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_NewPhoneActionPerformed
+
+    private void TextField_NewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_NewPasswordActionPerformed
+
+    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
+        RemoteControl controller = new RemoteControl();
+        if(!LastActionType.isEmpty()){
+            if(LastActionType.equalsIgnoreCase("Add")){
+                Undo UndoObject = new Undo(SaveToUndo);
+                controller.setCommand(UndoObject);
+
+                RedoType = "Add";
+            }
+            else if(LastActionType.equalsIgnoreCase("delete")){
+                Redo redoObject = new Redo(SaveToUndo);
+                controller.setCommand(redoObject);
+                RedoType = "Delete";
+            }
+            controller.ButtonControl();
+            SaveLastUndoToRedo = SaveToUndo;
+        }
+
+    }//GEN-LAST:event_jButtonUndoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -661,10 +754,15 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_ChangeInfo;
-    private javax.swing.JTextField TextField_NewInfo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel Label_MemberNumber2;
+    private javax.swing.JLabel Label_MemberNumber3;
+    private javax.swing.JLabel Label_MemberNumber4;
+    private javax.swing.JLabel Label_MemberNumber5;
+    private javax.swing.JLabel Label_MemberNumber6;
+    private javax.swing.JTextField TextField_NewEmail;
+    private javax.swing.JTextField TextField_NewPassword;
+    private javax.swing.JTextField TextField_NewPhone;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -674,6 +772,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDeleteMyself;
     private javax.swing.JButton jButtonRedo;
     private javax.swing.JButton jButtonUndo;
+    private javax.swing.JButton jButton_AddTask;
+    private javax.swing.JButton jButton_DeleteTask;
+    private javax.swing.JButton jButton_getTaskMembers;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -700,7 +801,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableForShowTasks;
+    private javax.swing.JTable jTable_ShowTasks;
     private javax.swing.JTextField jTextField_Department;
     private javax.swing.JTextField jTextField_EndDate;
     private javax.swing.JTextField jTextField_FirstName;

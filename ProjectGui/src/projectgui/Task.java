@@ -6,29 +6,9 @@
 package projectgui;
 
 import projectgui.*;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.StandardOpenOption.APPEND;
-import static java.rmi.Naming.list;
 import java.util.ArrayList;
-import java.util.Collections;
-import static java.util.Collections.list;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextField;
-import java.io.Writer;
-import javax.swing.JLabel;
+import static projectgui.Member.instance;
 
 
 
@@ -39,18 +19,23 @@ import javax.swing.JLabel;
  */
 public class Task extends AbstractFunction{
   
-  protected JTextField id;
-  protected JTextField date_start;
-  protected JTextField date_finish;
-  protected JTextField name;
-  protected JTextField status;
-  protected JTextField MemberId;
+  protected String id;
+  protected String date_start;
+  protected String date_finish;
+  protected String name;
+  protected String status;
+  protected String MemberId;
+  String PrivateChanged_StartDate;
+  String PrivateChanged_EndDate;
+  String PrivateChanged_Status;
+  String TaskPathFile = "/home/yara/Documents/4year/OODP/Project/Task.txt";
+   FileFacade facade = new FileFacade();
  // protected JTextField status;
   public boolean  bool =true;
 //  String TID =id.getText();
   protected ArrayList<Member>m= new ArrayList<>();
   protected ArrayList<Resource> r=new ArrayList<>();
-    public Task(JTextField id,JTextField name,JTextField date_start,JTextField date_finish,JTextField status,JTextField MemberID)
+    public Task(String id,String name,String date_start,String date_finish,String status,String MemberID)
         {
             this.id=id;
             this.name=name;
@@ -79,19 +64,46 @@ public class Task extends AbstractFunction{
 //        }
 //         return status;
 //    }
+     
+    public String getTaskID(){
+    return id;
+    }
+    
+      public String getStartDate(){
+    return date_start;
+    }
+
+    public String getEndDate(){
+    return date_finish;
+    }
+    
+    public String getName(){
+    return name;
+    }
+  
+    public String getStatus(){
+    return status;
+    }
+    
+    public String getMemberID(){
+    return MemberId;
+    }
+    
+      
+    
     public void add_resource(){
         
     }
-
+    
     @Override
     public void add() {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      String ID =id.getText();
-       String Name =name.getText();
-       String form_date =date_start.getText();
-       String to_date =date_finish.getText();
-       String Status =status.getText();
-       String MemberID = MemberId.getText();
+      String ID =id;
+       String Name =name;
+       String form_date =date_start;
+       String to_date =date_finish;
+       String Status =status;
+       String MemberID = MemberId;
      ArrayList<String> arr = new ArrayList<String>();
      arr.add(ID);
      arr.add(Name);
@@ -99,57 +111,25 @@ public class Task extends AbstractFunction{
      arr.add(to_date);
      arr.add(Status);
      arr.add(MemberID);
-     String PathFile = "/home/yara/Documents/4year/OODP/Task.txt";
-      FileFacade facade = new FileFacade();
-      facade.Add(PathFile, arr);
+     
+     facade.Add(TaskPathFile, arr);
     }
 
     @Override
-    public void update() {  // Please Use Facade here 
-         ArrayList<String>Lines=new ArrayList<>();
-           File file =new File("/home/yara/Documents/4year/OODP/Task.txt");
-          BufferedReader br = null;
-      try {
-          br = new BufferedReader(new FileReader("/home/yara/Documents/4year/OODP/Task.txt"));
-      } catch (FileNotFoundException ex) {
-          Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
-      }
-          String str;
-        String  UID=id.getText();
-      try {
-          while((str=br.readLine()) !=null)
-          {
-              
-              Lines.add(str);
-          }
-          String UpadetString = id.getText() +" , "+ name.getText()+" , "+ date_start.getText()+" , "+ date_finish.getText()+" , "+status.getText();
-             for (int i=0 ;i<Lines.size();i++)
-            {
-               String line=Lines.get(i).trim();
-               String[] datarow =line.split(" , ");
-               if(datarow[0].equals(UID))
-               {
-                   Lines.set(i,UpadetString );
-               }   
-            }
-             PrintWriter Pwriter = new PrintWriter(file);
-          Pwriter.print("");
-           Pwriter.close();
-            
-          File f=new File("/home/yara/Documents/4year/OODP/Task.txt");
-          FileWriter writer = new FileWriter(f.getAbsoluteFile(), true);
-           BufferedWriter bw=new BufferedWriter(writer);
-            for(String x:Lines)
-            {
-                bw.write(x);
-                 bw.newLine();
-            }
-            bw.close();
-             
-      } catch (IOException ex) {
-          Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
-      }
-          
+    public void update() {  
+        
+           ArrayList<String> LinesToBeUpdated = new ArrayList<String>();
+     LinesToBeUpdated.add(date_start);
+     LinesToBeUpdated.add(date_finish);
+     LinesToBeUpdated.add(status);
+     
+     ArrayList<String> LinesUpdated = new ArrayList<String>();
+     LinesUpdated.add(PrivateChanged_StartDate);
+     LinesUpdated.add(PrivateChanged_EndDate);
+     LinesUpdated.add(PrivateChanged_Status);
+     
+          facade.UpdateFile(TaskPathFile, LinesToBeUpdated, LinesUpdated);
+        
             
     }
 
@@ -160,12 +140,12 @@ public class Task extends AbstractFunction{
            ArrayList<String>Lines=new ArrayList<>();
            String Path = "/home/yara/Documents/4year/OODP/Task.txt";
          
-        String  RID=id.getText();
-        String  Taskname = name.getText();
-        String startDate = date_start.getText();
-        String EndDate = date_finish.getText();
-        String LocalStatus = status.getText();
-        String MemberID = MemberId.getText();
+        String  RID=id;
+        String  Taskname = name;
+        String startDate = date_start;
+        String EndDate = date_finish;
+        String LocalStatus = status;
+        String MemberID = MemberId;
         
       Lines.add(RID);
       Lines.add(Taskname);
@@ -174,8 +154,17 @@ public class Task extends AbstractFunction{
       Lines.add(LocalStatus);
       Lines.add(MemberID);
       
-      FileFacade facade = new FileFacade();
+     
       facade.remove(Path, Lines);
       
+    }
+    public String getMembersNames(String MemberID){
+     return facade.getMemberName("/home/yara/Documents/4year/OODP/Project/NormalM.txt", MemberID);
+
+    }
+    public void setDataToBeUpdated(ArrayList<String> ParChangedDataArrayList) {
+    PrivateChanged_StartDate = ParChangedDataArrayList.get(0);
+    PrivateChanged_EndDate = ParChangedDataArrayList.get(1);
+    PrivateChanged_Status = ParChangedDataArrayList.get(2);
     }
 }

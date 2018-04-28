@@ -9,7 +9,7 @@ import static java.nio.file.StandardOpenOption.*;
 import java.nio.file.*;
 import java .io.*;
 
-public abstract class registration{
+public interface registration{
     public abstract boolean isNull();
     public abstract void setData();
 

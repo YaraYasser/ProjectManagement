@@ -5,16 +5,9 @@
  */
 package projectgui;
 
-import java.awt.TextField;
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.StandardOpenOption;
+
 import java.util.ArrayList;
-import javax.swing.JTextField;
-import projectgui.Member;
+import projectgui.*;
 
 /**
  *
@@ -23,6 +16,7 @@ import projectgui.Member;
 public class NormalMember extends Member {
     public int duration;
     public int noOfTasks;
+     String NormalMemberFilePath = "/home/yara/Documents/4year/OODP/Project/NormalM.txt";
     
      
     public static synchronized Member getInstance() {
@@ -37,27 +31,38 @@ public class NormalMember extends Member {
     @Override
     public void add() {
       ArrayList<String> Lines = new ArrayList<String>();
-              
-       String Frist_Name = (ParentFirstName.getText());
-       String Last_Name = ParentLastName.getText();
-       String email = ParentEmail.getText();
-       String phone = ParentPhone.getText();
-       String passwordd = ParentPassword.getText();
+       
+       String ID = ParentID;       
+       String Frist_Name = ParentFirstName;
+       String Last_Name = ParentLastName;
+       String email = ParentEmail;
+       String phone = ParentPhone;
+       String passwordd = ParentPassword;
+       Lines.add(ID);
        Lines.add(Frist_Name);
        Lines.add(Last_Name);
        Lines.add(email);
        Lines.add(phone);
       Lines.add(passwordd);
-     String FilePath = "/home/yara/Documents/4year/OODP/NormalM.txt";
-     facadeObject.Add(FilePath,Lines);
+     facadeObject.Add(NormalMemberFilePath,Lines);
     }
 
     @Override
     public void update() { 
-     facadeObject.UpdateFile("/home/yara/Documents/4year/OODP/NormalM.txt", instance.ParentEmail.getText(), LocalChangedEmail.getText());
+     ArrayList<String> LinesToBeUpdated = new ArrayList<String>();
+     LinesToBeUpdated.add(instance.ParentEmail);
+     LinesToBeUpdated.add(instance.ParentPhone);
+     LinesToBeUpdated.add(instance.ParentPassword);
+     
+     ArrayList<String> LinesUpdated = new ArrayList<String>();
+     LinesUpdated.add(instance.LocalChangedEmail);
+     LinesUpdated.add(instance.LocalChangedphone);
+     LinesUpdated.add(instance.LocalChangedPassword);
+     
+     facadeObject.UpdateFile(NormalMemberFilePath, LinesToBeUpdated, LinesUpdated);
       instance.ParentEmail =  LocalChangedEmail;
-     //instance.ParentPhone = ChangedMobile;
-    // instance.ParentPassword = Changedpassword;
+     instance.ParentPhone = instance.LocalChangedphone;
+     instance.ParentPassword = instance.LocalChangedPassword;
     }
 
     @Override
@@ -70,10 +75,11 @@ public class NormalMember extends Member {
      public void changetaskstatus(){
         
     }
-     public void setDataToBeUpdated(JTextField ChangedEmail/*,JTextField ChangedMobile,JTextField Changedpassword*/){
-    LocalChangedEmail = ChangedEmail;
-  //  LocalChangedMobile = ChangedMobile;
-    //LocalChangedpassword = Changedpassword;
+     @Override
+     public void setDataToBeUpdated(ArrayList<String> NewData){
+    LocalChangedEmail = NewData.get(0);
+    LocalChangedphone = NewData.get(1);
+    LocalChangedPassword = NewData.get(2);
      
      }
 
@@ -81,13 +87,13 @@ public class NormalMember extends Member {
     public void remove() {
          
     ArrayList<String> linesToRemove = new ArrayList<String>();
-    linesToRemove.add(ParentFirstName.getText());
-    linesToRemove.add(ParentLastName.getText());
-    linesToRemove.add(ParentEmail.getText());
-    linesToRemove.add(ParentPhone.getText());
-    linesToRemove.add(ParentPassword.getText());
+    linesToRemove.add(ParentFirstName);
+    linesToRemove.add(ParentLastName);
+    linesToRemove.add(ParentEmail);
+    linesToRemove.add(ParentPhone);
+    linesToRemove.add(ParentPassword);
    
-    facadeObject.remove("/home/yara/Documents/4year/OODP/NormalM.txt",linesToRemove);
+    facadeObject.remove(NormalMemberFilePath,linesToRemove);
    
     }
 }

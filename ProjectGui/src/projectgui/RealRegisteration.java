@@ -11,16 +11,16 @@ import javax.swing.JTextField;
  *
  * @author compac
  */
-public class RealRegisteration extends registration{
-     JTextField ID;
-     JTextField FirstName;
-     JTextField LastName;
-     JTextField Email;
-     JTextField Phone;
-     JTextField Password;
+public class RealRegisteration implements registration{
+     String ID;
+     String FirstName;
+     String LastName;
+     String Email;
+     String Phone;
+     String Password;
      Member memberObject;
      MemberFactory memberFactoryObj;
-    public RealRegisteration(JTextField MemberIDEnteredData,JTextField FirstNameEnteredData,JTextField LastNameEnteredData,JTextField EmailEnteredData,JTextField PhoneEnteredData,JTextField TxtBox_Password,String typeOfMember) {
+    public RealRegisteration(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData,String EmailEnteredData,String PhoneEnteredData,String TxtBox_Password,String typeOfMember) {
     ID = MemberIDEnteredData;
     FirstName = FirstNameEnteredData;
     LastName = LastNameEnteredData;

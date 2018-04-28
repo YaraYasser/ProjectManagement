@@ -1,5 +1,0 @@
-2 , path_coverage , path_coverage ,  , Add,Sub,Compare , get test cases
-4 , Bank_system , WEB , Add,account,withdraw , operation of bank
-5 , otlob , WEB , Add,sub , sferte
-8 , fgfgg , Desktop , nmbiu , kjzniusdi
-1 , hgf , Android , gfd , bvbvcb
