@@ -6,7 +6,7 @@
 package projectgui;
 
 import my.gui.GUI;
-import my.gui.management_task;
+import my.gui.ProjectBoard;
 
 /**
  *

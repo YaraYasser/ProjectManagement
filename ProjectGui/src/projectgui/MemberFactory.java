@@ -14,35 +14,40 @@ import projectgui.*;
  * @author DELL_PC
  */
 public class MemberFactory {
-    
+      StringAccessor accessor;
+
+    public MemberFactory() {
+    accessor = new StringAccessor();
+    }
+      
      public Member getmember()
-    {
-        Member obj;
+    {  
+        Member returnedObj;
         Member AccessObj = Projectmanager.getInstance();
-        if(AccessObj.MemberType=="ProjectManager")
+        if((AccessObj.MemberType).equalsIgnoreCase(accessor.ManagerType))
         {
-           obj=  Projectmanager.getInstance();
+           returnedObj =  Projectmanager.getInstance();
         }
-        else if(AccessObj.MemberType=="NormalMember")
+        else if((AccessObj.MemberType).equalsIgnoreCase(accessor.MemberType))
         {
-              obj=  NormalMember.getInstance();
+              returnedObj =  NormalMember.getInstance();
         }
         else
         {
             return new NullMember();
         }
-        return obj;
+        return returnedObj;
         
     }
     
     public Member getmember(String membertype)
     {
         Member obj;
-        if(membertype=="ProjectManager")
+        if(membertype.equalsIgnoreCase(accessor.ManagerType))
         {
            obj=  Projectmanager.getInstance();
         }
-        else if(membertype=="NormalMember")
+        else if(membertype.equalsIgnoreCase(accessor.MemberType))
         {
               obj=  NormalMember.getInstance();
         }

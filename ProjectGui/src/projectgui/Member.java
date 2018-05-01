@@ -32,7 +32,8 @@ public abstract class Member extends AbstractFunction{
     
     }
   
-    public void fillClassData(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData,String EmailEnteredData,String PhoneEnteredData,String LocalPassword,String type){
+    public void fillClassData(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData
+            ,String EmailEnteredData,String PhoneEnteredData,String LocalPassword,String type){
     ParentID = MemberIDEnteredData;
     ParentFirstName = FirstNameEnteredData;
     ParentLastName = LastNameEnteredData;
@@ -44,13 +45,24 @@ public abstract class Member extends AbstractFunction{
     public String getMemberID(){
     return ParentID;
     }
+    
     @Override
     public abstract void add();
 
     @Override
     public abstract void update();
+    
     public abstract boolean isNull();
+    
     @Override
     public abstract void remove();
+    
     public abstract void setDataToBeUpdated(ArrayList<String> NewData);
+    
+    public abstract void AssignTask(String parMemberID,String parMemberTask);
+    
+    public void Remove_MemberTask_Relation(){
+    
+    }
+    
 }

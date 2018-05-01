@@ -8,8 +8,7 @@ package projectgui;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import projectgui.Department;
-import projectgui.Department;
+import projectgui.*;
 
 /**
  *
@@ -19,14 +18,16 @@ public class Android extends Department{
 
     String language;
     JLabel Name;
+   
     public Android(JLabel Name)
     {
         this.Name=Name;
+        Paths = new StringAccessor();
     }
     @Override
     public void returnimage()
     {
-        ImageIcon icon=new ImageIcon("E:\\4th year\\2\\design pattern\\ProjectGui\\ProjectGui\\android.jpg");
+        ImageIcon icon=new ImageIcon(Paths.AndroidImagePath);
         Name.setIcon(icon);
     }
 

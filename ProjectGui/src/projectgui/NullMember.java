@@ -38,5 +38,15 @@ public class NullMember extends Member{
     public void setDataToBeUpdated(ArrayList<String> NewData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void AssignTask(String parMemberID, String parMemberTask) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getDataByID(String ID) {
+        throw new UnsupportedOperationException("get Data from null Member"); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

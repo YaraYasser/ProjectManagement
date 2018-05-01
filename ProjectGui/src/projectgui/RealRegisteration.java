@@ -20,7 +20,8 @@ public class RealRegisteration implements registration{
      String Password;
      Member memberObject;
      MemberFactory memberFactoryObj;
-    public RealRegisteration(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData,String EmailEnteredData,String PhoneEnteredData,String TxtBox_Password,String typeOfMember) {
+    public RealRegisteration(String MemberIDEnteredData,String FirstNameEnteredData,
+            String LastNameEnteredData,String EmailEnteredData,String PhoneEnteredData,String TxtBox_Password,String typeOfMember) {
     ID = MemberIDEnteredData;
     FirstName = FirstNameEnteredData;
     LastName = LastNameEnteredData;

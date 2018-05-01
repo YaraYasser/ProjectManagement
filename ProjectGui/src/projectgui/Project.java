@@ -17,7 +17,7 @@ public class Project extends AbstractFunction{
     String langua;
   
     Department objDepartment ;
-    
+   int ProjectLinesInFileRequired = 5; 
    protected String project_id;
    protected String project_Name;
    protected String project_Tasks;
@@ -26,7 +26,6 @@ public class Project extends AbstractFunction{
    protected ArrayList<String> OldData = new ArrayList<String>();
     FileFacade facade = new FileFacade();
     
-    String ProjectFilePath = "/home/yara/Documents/4year/OODP/Project/Project.txt";
    
     public String getProjectDescription(){
     return project_Desc;
@@ -62,7 +61,7 @@ public class Project extends AbstractFunction{
          ElementsToBeAdded.add(dep);
          ElementsToBeAdded.add(project_Tasks);
          ElementsToBeAdded.add(project_Desc);
-    facade.Add(ProjectFilePath, ElementsToBeAdded);
+    facade.Add(accessor.ProjectFilePath, ElementsToBeAdded);
          
     }
 
@@ -76,7 +75,7 @@ public class Project extends AbstractFunction{
         NewLines.add(dep);
         NewLines.add(project_Tasks);
         NewLines.add(project_Desc);
-         facade.UpdateFile(ProjectFilePath, OldData, NewLines);
+         facade.UpdateFile(accessor.ProjectFilePath, OldData, NewLines);
      
     
     }
@@ -91,12 +90,15 @@ public class Project extends AbstractFunction{
          LinesToBeRemoved.add(dep);
          LinesToBeRemoved.add(project_Tasks);
          LinesToBeRemoved.add(project_Desc);
-    facade.remove(ProjectFilePath, LinesToBeRemoved);
+    facade.remove(accessor.ProjectFilePath, LinesToBeRemoved);
     
        
     }
 
-    public void getDataOfSpecificProject(String ProjectID){
-    OldData = facade.getProjectData(ProjectID);
+
+    @Override
+    public ArrayList<String> getDataByID(String ID) {
+    OldData = facade.getDataByID(ID,ProjectLinesInFileRequired); 
+    return OldData;
     }
 }

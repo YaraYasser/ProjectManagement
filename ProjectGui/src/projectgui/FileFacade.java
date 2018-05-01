@@ -328,9 +328,12 @@ boolean successful = tempFile.renameTo(inputFile);
    
    return ReturnedTasksArrayList;
    }
-public ArrayList<String> getProjectData(String ParProjectID) {
    
-    int MaxNumberOfLinesForEachProject = 5;
+  
+   
+public ArrayList<String> getDataByID(String ParProjectID,int MaxNumberOfLinesForEachProject) {
+   
+    
     ArrayList<String> ReturnedProjectData = new ArrayList<String>();
     int counter =1;
     File inputFile = new File("/home/yara/Documents/4year/OODP/Project/Project.txt");
@@ -370,4 +373,6 @@ public ArrayList<String> getProjectData(String ParProjectID) {
    return ReturnedProjectData;
    
 }
+
+
 }

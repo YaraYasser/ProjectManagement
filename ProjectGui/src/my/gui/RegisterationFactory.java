@@ -29,7 +29,7 @@ public class RegisterationFactory {
     MemberType = Admin;
     }
     public  registration getregister(){
-    if((FirstNameLocal.toString().isEmpty()) || (LastNameLocal.toString().isEmpty()) || (EmailLocal.toString().isEmpty()) || (Phonelocal.toString().isEmpty()) || (PasswordLocal.toString().isEmpty())){
+    if((FirstNameLocal.isEmpty()) || (LastNameLocal.isEmpty()) || (EmailLocal.isEmpty()) || (Phonelocal.isEmpty()) || (PasswordLocal.isEmpty())){
     return new NullRegisteration();
     }
     return new Proxi(MemberIDLocal,FirstNameLocal, LastNameLocal, EmailLocal, Phonelocal, PasswordLocal, MemberType);

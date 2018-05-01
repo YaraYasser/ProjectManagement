@@ -7,10 +7,6 @@
 package projectgui;
 
 import java.awt.Container;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import java.awt.*;
-import static java.awt.Color.red;
 import javax.swing.JFrame;
 
 /**

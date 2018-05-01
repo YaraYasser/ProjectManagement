@@ -28,7 +28,6 @@ public class Task extends AbstractFunction{
   String PrivateChanged_StartDate;
   String PrivateChanged_EndDate;
   String PrivateChanged_Status;
-  String TaskPathFile = "/home/yara/Documents/4year/OODP/Project/Task.txt";
    FileFacade facade = new FileFacade();
  // protected JTextField status;
   public boolean  bool =true;
@@ -112,7 +111,7 @@ public class Task extends AbstractFunction{
      arr.add(Status);
      arr.add(MemberID);
      
-     facade.Add(TaskPathFile, arr);
+     facade.Add(accessor.TaskPathFile, arr);
     }
 
     @Override
@@ -128,7 +127,7 @@ public class Task extends AbstractFunction{
      LinesUpdated.add(PrivateChanged_EndDate);
      LinesUpdated.add(PrivateChanged_Status);
      
-          facade.UpdateFile(TaskPathFile, LinesToBeUpdated, LinesUpdated);
+          facade.UpdateFile(accessor.TaskPathFile, LinesToBeUpdated, LinesUpdated);
         
             
     }
@@ -138,9 +137,7 @@ public class Task extends AbstractFunction{
       
           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
            ArrayList<String>Lines=new ArrayList<>();
-           String Path = "/home/yara/Documents/4year/OODP/Task.txt";
-         
-        String  RID=id;
+         String  RID=id;
         String  Taskname = name;
         String startDate = date_start;
         String EndDate = date_finish;
@@ -155,16 +152,22 @@ public class Task extends AbstractFunction{
       Lines.add(MemberID);
       
      
-      facade.remove(Path, Lines);
+      facade.remove(accessor.TaskPathFile, Lines);
       
     }
     public String getMembersNames(String MemberID){
-     return facade.getMemberName("/home/yara/Documents/4year/OODP/Project/NormalM.txt", MemberID);
+     return facade.getMemberName(accessor.NormalMemberFilePath, MemberID);
 
     }
     public void setDataToBeUpdated(ArrayList<String> ParChangedDataArrayList) {
     PrivateChanged_StartDate = ParChangedDataArrayList.get(0);
     PrivateChanged_EndDate = ParChangedDataArrayList.get(1);
     PrivateChanged_Status = ParChangedDataArrayList.get(2);
+    }
+
+    @Override
+    public ArrayList<String> getDataByID(String ID) {
+    return facade.getDataByID(ID, 6);
+    
     }
 }

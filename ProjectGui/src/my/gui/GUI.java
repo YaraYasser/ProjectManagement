@@ -430,12 +430,14 @@ public class GUI extends javax.swing.JFrame {
     if(adminAuthonticationChecker == true){
     Admin adminGUI = new Admin();
     adminGUI.setVisible(true);
+    this.dispose();
     }    
     else{
     boolean memberAuthonticationChecker = AdminProxi.CheckAuthonticationForMember(TextBox_SignInEmail.getText(),TextBox_SignInpassword.getText());    
     if(memberAuthonticationChecker == true){
     CoreFunGUI memberTaskBoardGUI = new CoreFunGUI();
     memberTaskBoardGUI.setVisible(true);
+    this.dispose();
     }
     else{
           jLabel_ShowLoginErorr.setVisible(true);
@@ -456,12 +458,14 @@ public class GUI extends javax.swing.JFrame {
         MemberFactory memberFactor = new MemberFactory();
         Member YourMember = memberFactor.getmember();
        if(YourMember.MemberType == "ProjectManager"){
-      management_task AdminGUIobject = new management_task();
+      ProjectBoard AdminGUIobject = new ProjectBoard();
       AdminGUIobject.setVisible(true);
+      this.dispose();
        }
        else{
         CoreFunGUI HomeObject = new CoreFunGUI();
         HomeObject.setVisible(true);
+        this.dispose();
        }
         
     }//GEN-LAST:event_Button_SignUpActionPerformed

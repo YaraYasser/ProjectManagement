@@ -16,8 +16,6 @@ import projectgui.*;
 public class NormalMember extends Member {
     public int duration;
     public int noOfTasks;
-     String NormalMemberFilePath = "/home/yara/Documents/4year/OODP/Project/NormalM.txt";
-    
      
     public static synchronized Member getInstance() {
        if (instance == null) {
@@ -44,7 +42,7 @@ public class NormalMember extends Member {
        Lines.add(email);
        Lines.add(phone);
       Lines.add(passwordd);
-     facadeObject.Add(NormalMemberFilePath,Lines);
+     facadeObject.Add(accessor.NormalMemberFilePath,Lines);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class NormalMember extends Member {
      LinesUpdated.add(instance.LocalChangedphone);
      LinesUpdated.add(instance.LocalChangedPassword);
      
-     facadeObject.UpdateFile(NormalMemberFilePath, LinesToBeUpdated, LinesUpdated);
+     facadeObject.UpdateFile(accessor.NormalMemberFilePath, LinesToBeUpdated, LinesUpdated);
       instance.ParentEmail =  LocalChangedEmail;
      instance.ParentPhone = instance.LocalChangedphone;
      instance.ParentPassword = instance.LocalChangedPassword;
@@ -93,7 +91,22 @@ public class NormalMember extends Member {
     linesToRemove.add(ParentPhone);
     linesToRemove.add(ParentPassword);
    
-    facadeObject.remove(NormalMemberFilePath,linesToRemove);
+    facadeObject.remove(accessor.NormalMemberFilePath,linesToRemove);
    
     }
+
+    @Override
+    public void AssignTask(String parMemberID, String parMemberTask) {
+        ArrayList<String> DataToBeAdded = new ArrayList<String>();
+        DataToBeAdded.add(parMemberID);
+        DataToBeAdded.add(parMemberTask);
+    facadeObject.Add(accessor.FileTaskMemberRelationPath,DataToBeAdded);
+    }
+
+    @Override
+    public ArrayList<String> getDataByID(String ID) {
+   return facadeObject.getDataByID(ID, 6);
+    }
+    
+    
 }

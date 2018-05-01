@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package projectgui;
-
-import projectgui.TaskSwitchController;
-import projectgui.CommandInterface;
+import projectgui.*;
 
 /**
  *

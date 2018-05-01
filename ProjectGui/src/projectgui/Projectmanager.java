@@ -10,8 +10,7 @@ public class Projectmanager extends Member{
     Project projectObject;
     Department D;
     ArrayList<Member>member=new ArrayList<>();
-         String ManagerFilePath = "/home/yara/Documents/4year/OODP/Project/Manager.txt";
- 
+    
      private Projectmanager(){
      
      }
@@ -46,7 +45,7 @@ public class Projectmanager extends Member{
        Lines.add(phone);
        Lines.add(password);
   
-         facadeObject.Add(ManagerFilePath,Lines);
+         facadeObject.Add(accessor.ManagerFilePath,Lines);
     
         
     }
@@ -63,7 +62,7 @@ public class Projectmanager extends Member{
      LinesUpdated.add(instance.LocalChangedphone);
      LinesUpdated.add(instance.LocalChangedPassword);
      
-          facadeObject.UpdateFile(ManagerFilePath, LinesToBeUpdated, LinesUpdated);
+          facadeObject.UpdateFile(accessor.ManagerFilePath, LinesToBeUpdated, LinesUpdated);
           instance.ParentEmail =  LocalChangedEmail;
            instance.ParentPhone = instance.LocalChangedphone;
            instance.ParentPassword = instance.LocalChangedPassword;
@@ -93,7 +92,20 @@ public class Projectmanager extends Member{
     linesToRemove.add(ParentPhone);
     linesToRemove.add(ParentPassword);
    
-    facadeObject.remove(ManagerFilePath,linesToRemove);
+    facadeObject.remove(accessor.ManagerFilePath,linesToRemove);
+    }
+
+    @Override
+    public void AssignTask(String parMemberID, String parMemberTask) {
+        ArrayList<String> DataToBeAdded = new ArrayList<String>();
+        DataToBeAdded.add(parMemberID);
+        DataToBeAdded.add(parMemberTask);
+    facadeObject.Add(accessor.FileTaskMemberRelationPath,DataToBeAdded);
+    }
+
+    @Override
+    public ArrayList<String> getDataByID(String ID) {
+     return facadeObject.getDataByID(ID, 6);
     }
     
 }

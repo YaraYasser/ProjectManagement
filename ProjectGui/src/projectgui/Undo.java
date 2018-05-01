@@ -5,8 +5,7 @@
  */
 package projectgui;
 
-import projectgui.TaskSwitchController;
-import projectgui.CommandInterface;
+import projectgui.*;
 
 /**
  *

@@ -16,12 +16,12 @@ import projectgui.Project;
  *
  * @author lenovoo
  */
-public class management_task extends javax.swing.JFrame {
+public class ProjectBoard extends javax.swing.JFrame {
 
     /**
      * Creates new form management_task
      */
-    public management_task() {
+    public ProjectBoard() {
         initComponents();
         comobox_Department.addItem("Android");
         comobox_Department.addItem("WEB");
@@ -299,7 +299,7 @@ public class management_task extends javax.swing.JFrame {
         
          String department = comobox_Department.getSelectedItem().toString();
         Project PobjectObj=new  Project(Txt_Project_Id.getText(),Txt_projectName.getText(),department,Txt_projectTask.getText(),Txt_Project_desc.getText());
-        PobjectObj.getDataOfSpecificProject(Txt_Project_Id.getText());
+        PobjectObj.getDataByID(Txt_Project_Id.getText());
         PobjectObj.update();
         
         
@@ -337,20 +337,21 @@ public class management_task extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(management_task.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(management_task.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(management_task.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(management_task.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new management_task().setVisible(true);
+                new ProjectBoard().setVisible(true);
             }
         });
     }

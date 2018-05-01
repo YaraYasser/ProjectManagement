@@ -6,10 +6,7 @@
 package projectgui;
 
 import javax.swing.JLabel;
-import projectgui.Desktop;
-import projectgui.WebEng;
-import projectgui.Department;
-import projectgui.Android;
+import projectgui.*;
 
 /**
  *

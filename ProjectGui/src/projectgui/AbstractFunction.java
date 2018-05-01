@@ -12,10 +12,12 @@ import java.util.ArrayList;
  * @author compac
  */
 public abstract class AbstractFunction {
-       
+       protected StringAccessor accessor = new StringAccessor(); 
+  
         abstract public void add();
         abstract public void update();
         abstract public void remove();
+        abstract public ArrayList<String> getDataByID(String ID);
      
     
 }
