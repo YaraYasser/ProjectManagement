@@ -435,6 +435,7 @@ public class GUI extends javax.swing.JFrame {
     else{
     boolean memberAuthonticationChecker = AdminProxi.CheckAuthonticationForMember(TextBox_SignInEmail.getText(),TextBox_SignInpassword.getText());    
     if(memberAuthonticationChecker == true){
+        
     CoreFunGUI memberTaskBoardGUI = new CoreFunGUI();
     memberTaskBoardGUI.setVisible(true);
     this.dispose();

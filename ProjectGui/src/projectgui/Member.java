@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class Member extends AbstractFunction{
     
-    protected  Task ParentTaskObject;
+    protected ArrayList<Task> ParentTaskObject;
     public FileFacade facadeObject = new FileFacade();
     protected String ParentID;
     protected String ParentFirstName;
@@ -29,7 +29,7 @@ public abstract class Member extends AbstractFunction{
     protected static Member instance;
     
     protected Member(){
-    
+    ParentTaskObject = new ArrayList<>();
     }
   
     public void fillClassData(String MemberIDEnteredData,String FirstNameEnteredData,String LastNameEnteredData
@@ -61,8 +61,8 @@ public abstract class Member extends AbstractFunction{
     
     public abstract void AssignTask(String parMemberID,String parMemberTask);
     
-    public void Remove_MemberTask_Relation(){
+    public abstract void Remove_MemberTask_Relation(String parMemberID,String parTaskID);
     
-    }
+    
     
 }

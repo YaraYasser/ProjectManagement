@@ -30,9 +30,9 @@ public class Admin extends javax.swing.JFrame {
         StringsAccess = new StringAccessor();
          careTaker = new MementoCareTaker();
         initComponents();
-        jComboBox_UserType.addItem("Manager");
+        jComboBox_UserType.addItem(StringsAccess.ManagerType);
         
-        jComboBox_UserType.addItem("Member");
+        jComboBox_UserType.addItem(StringsAccess.MemberType);
         
     }
 
@@ -233,6 +233,11 @@ public class Admin extends javax.swing.JFrame {
         });
 
         jButton_DeleteMemberFromTask.setText("DELETE");
+        jButton_DeleteMemberFromTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteMemberFromTaskActionPerformed(evt);
+            }
+        });
 
         jTextField_MemberID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,7 +245,6 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jComboBox_UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox_UserType.setSelectedItem(null);
         jComboBox_UserType.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -265,28 +269,24 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton_AddMemberToTask)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(16, 16, 16)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
+                                .addGap(100, 100, 100)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_MemberTaskID)
+                                    .addComponent(jTextField_MemberTaskID, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jButton_DeleteMemberFromTask)
-                                        .addGap(0, 103, Short.MAX_VALUE))))
+                                        .addGap(0, 103, Short.MAX_VALUE))
+                                    .addComponent(jTextField_MemberID, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboBox_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(120, 120, 120)
-                        .addComponent(jTextField_MemberID)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(90, 90, 90))
         );
         jPanel3Layout.setVerticalGroup(
@@ -294,23 +294,23 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField_MemberID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_MemberID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_MemberTaskID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(55, 55, 55)
+                    .addComponent(jLabel18)
+                    .addComponent(jComboBox_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_AddMemberToTask)
                     .addComponent(jButton_DeleteMemberFromTask))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -671,13 +671,18 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton_AddMemberToTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddMemberToTaskActionPerformed
         MemberFactory factor = new MemberFactory();
-        String choosedType = String.valueOf(jComboBox_UserType.getSelectedItem());
+        try{
+        String choosedType = String.valueOf(jComboBox_UserType.getSelectedItem().toString());
         Member memberObj = factor.getmember(choosedType);
         memberObj.AssignTask(jTextField_MemberID.getText(),jTextField_MemberTaskID.getText());
         AbstractObject = memberObj;
         AbstractObject.add();
         careTaker.Save(AbstractObject,"AssignMember");
+        }
+        catch(Exception ex){
         
+        
+        }
     }//GEN-LAST:event_jButton_AddMemberToTaskActionPerformed
 
     private void jTextField_MemberIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_MemberIDActionPerformed
@@ -713,7 +718,7 @@ public class Admin extends javax.swing.JFrame {
         RemoteControl controller = new RemoteControl();
         
         SwitchController = new TaskSwitchController(careTaker.restore());
-        if((careTaker.getLastActionType()).equalsIgnoreCase("")){
+        if(!(careTaker.getLastActionType()).equalsIgnoreCase("")){
             if((careTaker.getLastActionType()).equalsIgnoreCase("DeleteTask")){
                 Redo redoObject = new Redo(SwitchController);
                 controller.setCommand(redoObject);
@@ -752,7 +757,7 @@ public class Admin extends javax.swing.JFrame {
         SwitchController = new TaskSwitchController(careTaker.RedoRestoredData());
        
        if(careTaker.getLastActionType()!=""){
-            if((careTaker.getLastActionType()).equalsIgnoreCase("Delete")){
+            if((careTaker.getLastActionType()).equalsIgnoreCase("DeleteTask")){
                 Undo UndoObject = new Undo(SwitchController);
                 controller.setCommand(UndoObject);
             }
@@ -772,6 +777,21 @@ public class Admin extends javax.swing.JFrame {
     private void jComboBox_UserTypePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox_UserTypePropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_UserTypePropertyChange
+
+    private void jButton_DeleteMemberFromTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteMemberFromTaskActionPerformed
+         careTaker.Save(AbstractObject,"DeleteRelation");
+               MemberFactory factor = new MemberFactory();
+        try{
+        String choosedType = String.valueOf(jComboBox_UserType.getSelectedItem().toString());
+        Member memberObj = factor.getmember(choosedType);
+        memberObj.Remove_MemberTask_Relation(jTextField_MemberID.getText(),jTextField_MemberTaskID.getText());
+        }
+        catch(Exception ex){
+        
+        
+        }
+
+    }//GEN-LAST:event_jButton_DeleteMemberFromTaskActionPerformed
 
     /**
      * @param args the command line arguments
@@ -819,12 +839,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextField TextField_NewEmail;
     private javax.swing.JTextField TextField_NewPassword;
     private javax.swing.JTextField TextField_NewPhone;
-    private javax.swing.JComboBox comobox_Department;
-    private javax.swing.JComboBox comobox_Department1;
-    private javax.swing.JComboBox comobox_Department2;
-    private javax.swing.JComboBox comobox_Department3;
-    private javax.swing.JComboBox comobox_Department4;
-    private javax.swing.JComboBox comobox_Department5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;

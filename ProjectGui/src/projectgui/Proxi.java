@@ -62,8 +62,10 @@ public class Proxi implements registration{
     boolean checker = FileChecker.ChickExistence(accessor.ManagerFilePath,Email, Password);
     if(checker == true){
     MemberFactory admin = new MemberFactory();
-    Member adminMember = admin.getmember("ProjectManager");
-    FileChecker.setMemberDataAfterSignIN(adminMember,accessor.ManagerFilePath, Email,Password,"ProjectManager");
+    Member adminMember = admin.getmember(accessor.ManagerType);
+    FileChecker.setMemberDataAfterSignIN(adminMember,accessor.ManagerFilePath, Email,Password,accessor.ManagerType);
+    FileChecker.getMemberTasks(accessor.FileTaskManagerRelationPath, adminMember);
+   
     }
     return checker;
     }
@@ -74,9 +76,11 @@ public class Proxi implements registration{
     boolean checker = FileChecker.ChickExistence(accessor.NormalMemberFilePath,Email, Password);
      if(checker == true){
     MemberFactory NormalMemberFactory = new MemberFactory();
-    Member NormalMember = NormalMemberFactory.getmember("NormalMember");
-    FileChecker.setMemberDataAfterSignIN(NormalMember, accessor.NormalMemberFilePath, Email, Password, "NormalMember");
-    }
+    Member NormalMember = NormalMemberFactory.getmember(accessor.MemberType);
+    FileChecker.setMemberDataAfterSignIN(NormalMember, accessor.NormalMemberFilePath, Email, Password, accessor.MemberType);
+    FileChecker.getMemberTasks(accessor.FileTaskMemberRelationPath, NormalMember);
+  
+     }
     return checker;
     
     }

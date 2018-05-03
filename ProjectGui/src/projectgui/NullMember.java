@@ -48,5 +48,11 @@ public class NullMember extends Member{
     public ArrayList<String> getDataByID(String ID) {
         throw new UnsupportedOperationException("get Data from null Member"); //To change body of generated methods, choose Tools | Templates.
     }
+
+
+    @Override
+    public void Remove_MemberTask_Relation(String parMemberID, String parTaskID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

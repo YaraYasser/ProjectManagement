@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author yara
  */
 public class FileFacade {
-    String TempFilePath = "/home/yara/Documents/4year/OODP/temp.txt";
+    StringAccessor accessor = new StringAccessor();
     public void Add(String FilePath,ArrayList<String> Lines){
     
    
@@ -94,13 +94,13 @@ public class FileFacade {
     }
     public void remove(String FilePath, ArrayList<String> linesToRemove){
     File inputFile = new File(FilePath);
-    File tempFile = new File(TempFilePath);
+    File tempFile = new File(accessor.TempFilePath);
  try{
     boolean Checker=false;
     String currentLine;
     BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
+    
     while((currentLine = reader.readLine()) != null) {
     // trim newline when comparing with lineToRemove
     String trimmedLine = currentLine.trim();
@@ -130,7 +130,7 @@ boolean successful = tempFile.renameTo(inputFile);
     public boolean ChickExistence(String FilePath,String UserName,String Password){
     boolean BothCheck=false;
     File inputFile = new File(FilePath);
-    File tempFile = new File(TempFilePath);
+    File tempFile = new File(accessor.TempFilePath);
     try{
    
         boolean UserNameCheck=false;
@@ -173,7 +173,7 @@ boolean successful = tempFile.renameTo(inputFile);
     boolean BothCheck=false;
     int counter =1;
     File inputFile = new File(FilePath);
-    File tempFile = new File(TempFilePath);
+    File tempFile = new File(accessor.TempFilePath);
     try{
         
         boolean UserNameCheck=false;
@@ -198,8 +198,8 @@ boolean successful = tempFile.renameTo(inputFile);
         }
          else if(counter == 6){
         password = currentLine.trim();
+        counter=0;
         }
-       counter++;
        
          String trimmedLine = currentLine.trim();
         if(trimmedLine.equals(UserName)){ 
@@ -211,7 +211,12 @@ boolean successful = tempFile.renameTo(inputFile);
           
             }
         }
+        else if((UserNameCheck == true)&& (counter == 5)){
+            counter++;
+        continue;
+        }
         else{
+            if((BothCheck == false) && (counter == 0)){
             UserNameCheck = false;
             Id = "";
             firstName = "";
@@ -219,11 +224,16 @@ boolean successful = tempFile.renameTo(inputFile);
             email = "";
             phone = "";
             password = "";
+            }
             } 
-    
+    if(BothCheck == true){
+      EnteredMember.fillClassData(Id, firstName, lastName,email, phone, password, type);
+      break;
+    }
+      counter++;
+     
         }
-       EnteredMember.fillClassData(Id, firstName, lastName,email, phone, password, type);
-   
+     
     reader.close(); 
 
 
@@ -231,7 +241,115 @@ boolean successful = tempFile.renameTo(inputFile);
     catch(Exception ex){
  
     }
+   
+    
+    
         
+    }
+    
+    
+    public Member getMemberTasks(String RelationFilePath,Member CurrentMember){
+    
+         String TaskId = "";
+        String TaskName = "";
+        String TaskStart_Date = "";
+        String TaskEnd_Date = "";
+        String TaskStatus = "";
+        String MemberAsignedID = "";
+       ArrayList<String> TasksIDs = new ArrayList<>();
+    boolean Checker =false;
+    int counter =1;
+    File inputFile = new File(RelationFilePath);
+    try{
+        
+        boolean IDCheck=false;
+        String currentLine;
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+  
+       while((currentLine = reader.readLine()) != null) {
+           if((counter == 1)&& (CurrentMember.ParentID.equalsIgnoreCase(currentLine.trim()))){
+        Checker = true;
+       
+           }
+    
+           else if(Checker==true){
+           
+           TasksIDs.add(currentLine.trim());
+               counter = 0;
+               Checker = false;
+           }
+           else if(counter == 2){
+           counter =0;
+           }
+           counter++;
+       }
+    reader.close(); 
+
+
+    
+    }
+    catch(Exception ex){
+ 
+    }
+   // get the tasks data 
+   
+    boolean taskIDChecker=false;
+    int taskCounter =1;
+    File taskInputFile = new File(accessor.TaskPathFile);
+    File tempFile = new File(accessor.TempFilePath);
+    Task tempTask = new Task();
+    try{
+        
+        boolean UserNameCheck=false;
+        String currentTaskLine;
+        BufferedReader reader = new BufferedReader(new FileReader(taskInputFile));
+  
+       while((currentTaskLine = reader.readLine()) != null) {
+           for (String TasksID : TasksIDs) {
+               
+        if((taskCounter == 1) && (TasksID.equalsIgnoreCase(currentTaskLine.trim()))){
+        taskIDChecker = true;
+        tempTask.id = TasksID;
+        break;
+        }
+        else if (taskCounter > 1){
+        break;
+        }
+      
+           }
+           
+           if((taskIDChecker==true) && (taskCounter == 2)){
+           tempTask.name = currentTaskLine.trim();
+           }
+           else if((taskIDChecker==true) && (taskCounter == 3)){
+           tempTask.date_start = currentTaskLine.trim();
+           }
+           else if((taskIDChecker==true) && (taskCounter == 4)){
+           tempTask.date_finish = currentTaskLine.trim();
+           }
+           else if((taskIDChecker==true) && (taskCounter == 5)){
+           tempTask.status = currentTaskLine.trim();
+           }
+           else if((taskIDChecker==true) && (taskCounter == 6)){
+           tempTask.MemberId = currentTaskLine.trim();
+           taskIDChecker = false;
+           taskCounter = 0;
+           CurrentMember.ParentTaskObject.add(tempTask);
+           }
+           if(taskCounter == 6){
+           taskCounter = 0;
+           }
+           
+           taskCounter++;    
+           }
+    reader.close(); 
+
+
+    }
+    catch(Exception ex){
+ 
+    }
+    return CurrentMember;
     }
    public String getMemberName(String FilePath,String MemberID){
    
@@ -240,7 +358,7 @@ boolean successful = tempFile.renameTo(inputFile);
         
     int counter =1;
     File inputFile = new File(FilePath);
-    File tempFile = new File(TempFilePath);
+    File tempFile = new File(accessor.TempFilePath);
     try{
         
         boolean Checker=false;
@@ -282,10 +400,10 @@ boolean successful = tempFile.renameTo(inputFile);
    String Local_date_finish = "";
    String LocalName = "";
    String Local_status = "";
-   ArrayList<Task> ReturnedTasksArrayList = new ArrayList<Task>();
+   ArrayList<Task> ReturnedTasksArrayList = new ArrayList<>();
     int counter =1;
-    File inputFile = new File("/home/yara/Documents/4year/OODP/Project/Task.txt");
-    File tempFile = new File(TempFilePath);
+    File inputFile = new File(accessor.TaskPathFile);
+    File tempFile = new File(accessor.TempFilePath);
     try{
       
         String currentLine;
@@ -331,13 +449,13 @@ boolean successful = tempFile.renameTo(inputFile);
    
   
    
-public ArrayList<String> getDataByID(String ParProjectID,int MaxNumberOfLinesForEachProject) {
+public ArrayList<String> getDataByID(String FilePath,String ParProjectID,int MaxNumberOfLinesForEachProject) {
    
     
-    ArrayList<String> ReturnedProjectData = new ArrayList<String>();
+    ArrayList<String> ReturnedProjectData = new ArrayList<>();
     int counter =1;
-    File inputFile = new File("/home/yara/Documents/4year/OODP/Project/Project.txt");
-    File tempFile = new File(TempFilePath);
+    File inputFile = new File(FilePath);
+    File tempFile = new File(accessor.TempFilePath);
     boolean checker = false;
         String currentLine;
         
@@ -357,7 +475,7 @@ public ArrayList<String> getDataByID(String ParProjectID,int MaxNumberOfLinesFor
         }
         
         }
-        else if(counter > MaxNumberOfLinesForEachProject){
+       if(counter == MaxNumberOfLinesForEachProject){
         counter = 0;
         }
         counter++;
@@ -372,6 +490,68 @@ public ArrayList<String> getDataByID(String ParProjectID,int MaxNumberOfLinesFor
    
    return ReturnedProjectData;
    
+}
+
+public void removeRelation(String FilePath, ArrayList<String> linesToRemove){
+
+    File inputFile = new File(FilePath);
+    File tempFile = new File(accessor.TempFilePath);
+        BufferedReader reader;
+    BufferedWriter writer; 
+    boolean Checker=false;
+    String currentLine;
+    int Counter = 1;    
+    String tempForSavingFirstID = "";
+    try{
+    reader = new BufferedReader(new FileReader(inputFile));
+    writer = new BufferedWriter(new FileWriter(tempFile));
+    
+    while((currentLine = reader.readLine()) != null) {
+    // trim newline when comparing with lineToRemove
+    String trimmedLine = currentLine.trim();
+        for (int i =0;i<linesToRemove.size();i++) {
+    if((trimmedLine.equals(linesToRemove.get(i))) &&(Checker==false)){ 
+        Checker = true;
+        Counter++;
+        break;}
+            
+        }
+        if((Checker==true) &&(Counter == 3)){
+        tempForSavingFirstID = "";
+        Checker = false;
+        Counter = 1;
+        continue;
+        }
+        else if(Checker){
+        tempForSavingFirstID = trimmedLine.trim();
+        Checker = false;
+        
+        continue;
+        }
+        else{
+        if(!tempForSavingFirstID.isEmpty()){
+        
+       writer.write(tempForSavingFirstID + System.getProperty("line.separator"));
+       tempForSavingFirstID = "";
+        }
+        }
+    
+    writer.write(currentLine + System.getProperty("line.separator"));
+    
+   }
+    writer.close(); 
+    reader.close();
+    
+boolean successful = tempFile.renameTo(inputFile);
+    }
+    
+    catch(Exception ex){
+            
+            
+            }
+    
+    
+    
 }
 
 

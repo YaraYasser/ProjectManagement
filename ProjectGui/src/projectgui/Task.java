@@ -7,8 +7,6 @@ package projectgui;
 
 import projectgui.*;
 import java.util.ArrayList;
-import javax.swing.JTextField;
-import static projectgui.Member.instance;
 
 
 
@@ -19,12 +17,12 @@ import static projectgui.Member.instance;
  */
 public class Task extends AbstractFunction{
   
-  protected String id;
-  protected String date_start;
-  protected String date_finish;
-  protected String name;
-  protected String status;
-  protected String MemberId;
+  public String id;
+  public String name;
+ public  String date_start;
+  public String date_finish;
+  public String status;
+  public String MemberId;
   String PrivateChanged_StartDate;
   String PrivateChanged_EndDate;
   String PrivateChanged_Status;
@@ -167,7 +165,7 @@ public class Task extends AbstractFunction{
 
     @Override
     public ArrayList<String> getDataByID(String ID) {
-    return facade.getDataByID(ID, 6);
+    return facade.getDataByID(accessor.TaskPathFile,ID, 6);
     
     }
 }

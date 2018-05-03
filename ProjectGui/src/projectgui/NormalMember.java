@@ -96,17 +96,43 @@ public class NormalMember extends Member {
     }
 
     @Override
-    public void AssignTask(String parMemberID, String parMemberTask) {
+    public void AssignTask(String parMemberID, String parMemberTaskID) {
         ArrayList<String> DataToBeAdded = new ArrayList<String>();
+        ArrayList<String> TasksData = new ArrayList<String>();
+       
+        TasksData = facadeObject.getDataByID(accessor.NormalMemberFilePath,parMemberTaskID, 6);
+         Task tempTask = new Task();        
+        tempTask.id = parMemberTaskID;
+       tempTask.name = TasksData.get(1);
+        tempTask.date_start = TasksData.get(2);
+        tempTask.date_finish = TasksData.get(3);
+        tempTask.status = TasksData.get(4);
+       tempTask.MemberId = parMemberID;
+       ParentTaskObject.add(tempTask);
+       
         DataToBeAdded.add(parMemberID);
-        DataToBeAdded.add(parMemberTask);
+        DataToBeAdded.add(parMemberTaskID);
     facadeObject.Add(accessor.FileTaskMemberRelationPath,DataToBeAdded);
     }
 
     @Override
     public ArrayList<String> getDataByID(String ID) {
-   return facadeObject.getDataByID(ID, 6);
+   return facadeObject.getDataByID(accessor.NormalMemberFilePath,ID, 6);
     }
+
+    @Override
+    public void Remove_MemberTask_Relation(String parMemberID, String parTaskID) {
+    
+            ArrayList<String> linesToRemove = new ArrayList<String>();
+    linesToRemove.add(parMemberID);
+    linesToRemove.add(parTaskID);
+    
+    facadeObject.removeRelation(accessor.FileTaskMemberRelationPath,linesToRemove);
+   
+        
+    }
+
+    
     
     
 }

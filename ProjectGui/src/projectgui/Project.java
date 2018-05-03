@@ -98,7 +98,7 @@ public class Project extends AbstractFunction{
 
     @Override
     public ArrayList<String> getDataByID(String ID) {
-    OldData = facade.getDataByID(ID,ProjectLinesInFileRequired); 
+    OldData = facade.getDataByID(accessor.ProjectFilePath,ID,ProjectLinesInFileRequired); 
     return OldData;
     }
 }

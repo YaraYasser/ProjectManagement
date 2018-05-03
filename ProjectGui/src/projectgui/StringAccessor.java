@@ -14,10 +14,12 @@ public class StringAccessor {
     public String MemberType = "NormalMember";
     public String AndroidImagePath = "/home/yara/Documents/4year/OODP/Project/ProjectGui/android.jpg";
     public String NormalMemberFilePath = "/home/yara/Documents/4year/OODP/Project/NormalM.txt";
-    public String FileTaskMemberRelationPath = "/home/yara/Documents/4year/OODP/MemberTaskRelation.txt"; 
+    public String FileTaskMemberRelationPath = "/home/yara/Documents/4year/OODP/Project/MemberTaskRelation.txt"; 
     public String ProjectFilePath = "/home/yara/Documents/4year/OODP/Project/Project.txt";
     public String ManagerFilePath = "/home/yara/Documents/4year/OODP/Project/Manager.txt";
+    public String FileTaskManagerRelationPath = "/home/yara/Documents/4year/OODP/Project/ManagerTaskRelation.txt"; 
     public String TaskPathFile = "/home/yara/Documents/4year/OODP/Project/Task.txt";
+    public String TempFilePath = "/home/yara/Documents/4year/OODP/Project/temp.txt";
   
  
     
