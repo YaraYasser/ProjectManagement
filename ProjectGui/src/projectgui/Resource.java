@@ -16,6 +16,8 @@ public abstract class Resource {
   public double getPrice(){
 return Price;
 }
+  public abstract void add();
+  public abstract void update(String Id);
   
 }
 

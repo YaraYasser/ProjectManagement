@@ -10,17 +10,17 @@ package projectgui;
  * @author yara
  */
 public class StringAccessor {
-    public String ManagerType = "ProjectManager";
+  public String ManagerType = "ProjectManager";
     public String MemberType = "NormalMember";
-    public String AndroidImagePath = "/home/yara/Documents/4year/OODP/Project/ProjectGui/android.jpg";
-    public String NormalMemberFilePath = "/home/yara/Documents/4year/OODP/Project/NormalM.txt";
-    public String FileTaskMemberRelationPath = "/home/yara/Documents/4year/OODP/Project/MemberTaskRelation.txt"; 
-    public String ProjectFilePath = "/home/yara/Documents/4year/OODP/Project/Project.txt";
-    public String ManagerFilePath = "/home/yara/Documents/4year/OODP/Project/Manager.txt";
-    public String FileTaskManagerRelationPath = "/home/yara/Documents/4year/OODP/Project/ManagerTaskRelation.txt"; 
-    public String TaskPathFile = "/home/yara/Documents/4year/OODP/Project/Task.txt";
-    public String TempFilePath = "/home/yara/Documents/4year/OODP/Project/temp.txt";
-  
+    public String AndroidImagePath = "E:\\\\4th year\\\\2\\\\design pattern\\\\ProjectGui\\\\ProjectGui\\\\android.jpg";
+    public String NormalMemberFilePath = "C:\\Users\\lenovoo\\Desktop\\member.txt";
+    public String FileTaskMemberRelationPath = "C:\\Users\\lenovoo\\Desktop\\MemberTaskRelation.txt"; 
+    public String ProjectFilePath = "C:\\Users\\lenovoo\\Desktop\\Project.txt";
+    public String ManagerFilePath = "C:\\Users\\lenovoo\\Desktop\\Manager.txt";
+    public String FileTaskManagerRelationPath = "C:\\Users\\lenovoo\\Desktop\\ManagerTaskRelation.txt"; 
+    public String TaskPathFile = "C:\\Users\\lenovoo\\Desktop\\Task.txt";
+    public String TempFilePath = "C:\\Users\\lenovoo\\Desktop\\temp.txt";
+    public String ResourcePath="C:\\Users\\lenovoo\\Desktop\\resource.txt";
  
     
 }

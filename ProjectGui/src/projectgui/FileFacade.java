@@ -558,5 +558,31 @@ boolean successful = tempFile.renameTo(inputFile);
     
 }
 
+ public ArrayList getfile(String NormalMemberFilePath) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ArrayList<String> Lines =new ArrayList<>();
+      ArrayList<String> IDS =new ArrayList<>();
+     BufferedReader br = null;  
+     
+        try {
+            br = new BufferedReader(new FileReader(NormalMemberFilePath));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          String str;   
+       
+        try {
+            while((str=br.readLine()) !=null)
+            {
+                Lines.add(str);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+          return Lines;
+    }
+
 
 }
