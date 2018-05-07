@@ -630,7 +630,7 @@ public class Admin extends javax.swing.JFrame {
     private void Button_ChangeInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChangeInfoActionPerformed
         // this design will be allways for normal members
         MemberFactory memberFactor = new MemberFactory();
-           ArrayList<String> DataToUpdate= new ArrayList<String>();
+        ArrayList<String> DataToUpdate= new ArrayList<>();
         DataToUpdate.add(TextField_NewEmail.getText());
         DataToUpdate.add(TextField_NewPhone.getText());
         DataToUpdate.add(TextField_NewPassword.getText());
@@ -673,9 +673,9 @@ public class Admin extends javax.swing.JFrame {
         MemberFactory factor = new MemberFactory();
         try{
         String choosedType = String.valueOf(jComboBox_UserType.getSelectedItem().toString());
-        Member memberObj = factor.getmember(choosedType);
-        memberObj.AssignTask(jTextField_MemberID.getText(),jTextField_MemberTaskID.getText());
-        AbstractObject = memberObj;
+        Member choosedMemberObj = factor.getmember(choosedType);
+        choosedMemberObj.AssignTask(jTextField_MemberID.getText(),jTextField_MemberTaskID.getText());
+        AbstractObject = choosedMemberObj;
         AbstractObject.add();
         careTaker.Save(AbstractObject,"AssignMember");
         }
@@ -716,13 +716,11 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
         RemoteControl controller = new RemoteControl();
-        
         SwitchController = new TaskSwitchController(careTaker.restore());
         if(!(careTaker.getLastActionType()).equalsIgnoreCase("")){
             if((careTaker.getLastActionType()).equalsIgnoreCase("DeleteTask")){
                 Redo redoObject = new Redo(SwitchController);
                 controller.setCommand(redoObject);
-                
             }
             else {
                 if((careTaker.getLastActionType()).equalsIgnoreCase("AddTask")){

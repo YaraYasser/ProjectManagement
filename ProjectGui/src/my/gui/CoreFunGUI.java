@@ -18,22 +18,21 @@ import projectgui.Task;
  */
 public class CoreFunGUI extends javax.swing.JFrame
 {
-  
-     TaskSwitchController SaveToUndo;
-     TaskSwitchController SaveLastUndoToRedo;
+     TaskSwitchController SwitchController; 
      AbstractFunction AbstractObject;
-     String LastActionType = "";
-     String RedoType = "";
-    String memberType = "NormalMember";
-    /**
+     MementoCareTaker careTaker;
+     StringAccessor StringsAccess;
+   
+        /**
      * Creates new form 
      */
     public CoreFunGUI(){
-        
-        
+        StringsAccess = new StringAccessor();
+        careTaker = new MementoCareTaker();
         initComponents();
         ShowMembersCurrentTasks();
       }
+    
     
    public void ShowMembersCurrentTasks(){
    MemberFactory currentMember = new MemberFactory();
@@ -102,7 +101,7 @@ public class CoreFunGUI extends javax.swing.JFrame
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ShowTasks = new javax.swing.JTable();
         Button_ChangeInfo = new javax.swing.JButton();
-        TextField_NewMObile = new javax.swing.JTextField();
+        TextField_NewPhone = new javax.swing.JTextField();
         TextField_NewEmail = new javax.swing.JTextField();
         TextField_NewPassword = new javax.swing.JTextField();
         Label_MemberNumber2 = new javax.swing.JLabel();
@@ -452,9 +451,9 @@ public class CoreFunGUI extends javax.swing.JFrame
             }
         });
 
-        TextField_NewMObile.addActionListener(new java.awt.event.ActionListener() {
+        TextField_NewPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextField_NewMObileActionPerformed(evt);
+                TextField_NewPhoneActionPerformed(evt);
             }
         });
 
@@ -517,7 +516,7 @@ public class CoreFunGUI extends javax.swing.JFrame
                                 .addGap(299, 299, 299))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TextField_NewMObile, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TextField_NewPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextField_NewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextField_NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(40, 40, 40)
@@ -553,7 +552,7 @@ public class CoreFunGUI extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(TextField_NewMObile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TextField_NewPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Label_MemberNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButtonRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,9 +575,10 @@ public class CoreFunGUI extends javax.swing.JFrame
     }//GEN-LAST:event_jCheckBoxCircleActionPerformed
 
     private void Button_TaskAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskAddActionPerformed
-        LastActionType = "Add"; 
-        Task TaskObject=new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
-        TaskObject.add();
+       
+        AbstractObject=new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
+        AbstractObject.add();
+        careTaker.Save(AbstractObject,"AddTask");
         DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();
         String str[]=new String[]{TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText()};
         model.addRow(str);
@@ -598,22 +598,22 @@ public class CoreFunGUI extends javax.swing.JFrame
     }//GEN-LAST:event_TextField_StatusActionPerformed
 
     private void Button_TaskUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskUpdateActionPerformed
-        LastActionType = "Update";     
+         careTaker.Save(AbstractObject,"UpdateTask");
+      
         Task TaskUpdateObject =new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
-        
         TaskUpdateObject.update();
         
     }//GEN-LAST:event_Button_TaskUpdateActionPerformed
 
     private void Button_TaskDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaskDeleteActionPerformed
-        LastActionType = "Delete";
-        SaveToUndo = new TaskSwitchController(AbstractObject);       
+        careTaker.Save(AbstractObject,"DeleteTask");
         AbstractObject =new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
+        AbstractObject.remove();
         AbstractObject.remove();
         DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();  
         int RowNumber = Integer.valueOf(TextField_TaskID.getText()) -1;
-        model.removeRow(RowNumber);      
-        
+        model.removeRow(RowNumber);
+
     }//GEN-LAST:event_Button_TaskDeleteActionPerformed
 
     private void darkGrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkGrayActionPerformed
@@ -628,21 +628,20 @@ public class CoreFunGUI extends javax.swing.JFrame
         this.getContentPane().setBackground(Color.blue);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void TextField_NewMObileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewMObileActionPerformed
+    private void TextField_NewPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewPhoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TextField_NewMObileActionPerformed
+    }//GEN-LAST:event_TextField_NewPhoneActionPerformed
 
     private void Button_ChangeInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChangeInfoActionPerformed
      // this design will be allways for normal members 
-        MemberFactory memberFactor = new MemberFactory();
-      Member memberObj = memberFactor.getmember(memberType);
-         ArrayList<String> DataToUpdate= new ArrayList<String>();
+      MemberFactory memberFactor = new MemberFactory();
+        ArrayList<String> DataToUpdate= new ArrayList<>();
         DataToUpdate.add(TextField_NewEmail.getText());
-        DataToUpdate.add(TextField_NewMObile.getText());
+        DataToUpdate.add(TextField_NewPhone.getText());
         DataToUpdate.add(TextField_NewPassword.getText());
-        
-      memberObj.setDataToBeUpdated(DataToUpdate);
-      memberObj.update();
+        Member memberObj = memberFactor.getmember();
+        memberObj.setDataToBeUpdated(DataToUpdate);
+        memberObj.update();
     }//GEN-LAST:event_Button_ChangeInfoActionPerformed
 
     private void TextField_NewEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_NewEmailActionPerformed
@@ -654,41 +653,48 @@ public class CoreFunGUI extends javax.swing.JFrame
     }//GEN-LAST:event_TextField_NewPasswordActionPerformed
 
     private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
-                RemoteControl controller = new RemoteControl();
-        if(!LastActionType.isEmpty()){
-            if(LastActionType.equalsIgnoreCase("Add")){
-                Undo UndoObject = new Undo(SaveToUndo);
-                controller.setCommand(UndoObject);
-
-                RedoType = "Add";
-            }
-            else if(LastActionType.equalsIgnoreCase("delete")){
-                Redo redoObject = new Redo(SaveToUndo);
+    RemoteControl controller = new RemoteControl();
+        SwitchController = new TaskSwitchController(careTaker.restore());
+        if(!(careTaker.getLastActionType()).equalsIgnoreCase("")){
+            if((careTaker.getLastActionType()).equalsIgnoreCase("DeleteTask")){
+                Redo redoObject = new Redo(SwitchController);
                 controller.setCommand(redoObject);
-                RedoType = "Delete";
+            }
+            else {
+                if((careTaker.getLastActionType()).equalsIgnoreCase("AddTask")){
+                Undo UndoObject = new Undo(SwitchController);
+                controller.setCommand(UndoObject);
+                DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();  
+                int RowNumber = jTable_ShowTasks.getRowCount()-1;
+                model.removeRow(RowNumber);    
+              
+            }
+            // remove relation
             }
             controller.ButtonControl();
-            SaveLastUndoToRedo = SaveToUndo;
+          
         }
-
 
     }//GEN-LAST:event_jButtonUndoActionPerformed
 
     private void jButtonRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedoActionPerformed
 
-          RemoteControl controller = new RemoteControl();
-        if(!RedoType.isEmpty()){
-            if(RedoType.equalsIgnoreCase("delete")){
-                Undo UndoObject = new Undo(SaveToUndo);
+        RemoteControl controller = new RemoteControl();
+      
+        SwitchController = new TaskSwitchController(careTaker.RedoRestoredData());
+       
+       if(careTaker.getLastActionType()!=""){
+            if((careTaker.getLastActionType()).equalsIgnoreCase("DeleteTask")){
+                Undo UndoObject = new Undo(SwitchController);
                 controller.setCommand(UndoObject);
             }
             else{
-                Redo RedoObject = new Redo(SaveLastUndoToRedo);
+                Redo RedoObject = new Redo(SwitchController);
                 controller.setCommand(RedoObject);
             }
             controller.ButtonControl();
         }
-        
+         
     }//GEN-LAST:event_jButtonRedoActionPerformed
 
     /**
@@ -757,8 +763,8 @@ public class CoreFunGUI extends javax.swing.JFrame
     private javax.swing.JTextField TextFieldToDate;
     private javax.swing.JTextField TextField_MemberNumber;
     private javax.swing.JTextField TextField_NewEmail;
-    private javax.swing.JTextField TextField_NewMObile;
     private javax.swing.JTextField TextField_NewPassword;
+    private javax.swing.JTextField TextField_NewPhone;
     private javax.swing.JTextField TextField_Status;
     private javax.swing.JTextField TextField_TaskID;
     private javax.swing.JTextField TextField_TaskName;

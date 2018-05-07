@@ -18,41 +18,38 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectgui.Software;
 
 /**
  *
- * @author yara
+ * @author lenovoo
  */
-public class OS extends Software{
-    String License;
-     String os="null";
-  
-  String id;
-     public OS(String os,String id)
+public class URL extends Software {
+    
+
+    String url;
+    String id;
+     public URL(String url,String id)
     {
-        this.os=os;
+        this.url=url;
         this.id=id;
     }
-
     @Override
     public void add() {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        try{
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try{
         Path p = Paths.get("C:\\Users\\lenovoo\\Desktop\\resource.txt");
           File f=new File("C:\\Users\\lenovoo\\Desktop\\resource.txt");
           FileWriter writer = new FileWriter(f.getAbsoluteFile(), true);
            BufferedWriter bw=new BufferedWriter(writer);
            String s=id+",";
-           bw.write(s);
-           bw.write(os );
+           bw.write(s );           
+           bw.write(url );
            bw.newLine();
            bw.close();
            writer.close();
       } catch (IOException e) {
           e.printStackTrace();
       }
-    
     }
 
     @Override
@@ -100,14 +97,11 @@ public class OS extends Software{
       } catch (IOException ex) {
           Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
       }
-          
-
     }
-
 
     @Override
     public void delete(String Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

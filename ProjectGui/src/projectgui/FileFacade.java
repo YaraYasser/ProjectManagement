@@ -33,8 +33,9 @@ public class FileFacade {
             }
     }
     
-    public void UpdateFile(String FilePath,ArrayList<String> LineToBeUpdated,ArrayList<String> UpdatedValue){
-    ArrayList<String>Lines=new ArrayList<>();
+    public void UpdateFile(String FilePath,ArrayList<String> LineToBeUpdated,ArrayList<String> UpdatedValue,int MaxNumberOfLinesForEachProject){
+           
+  ArrayList<String>Lines=new ArrayList<>();
     File fileToBeModified = new File(FilePath);
     String newContent = "";     
         String oldContent = "";
@@ -59,11 +60,11 @@ public class FileFacade {
                 line = reader.readLine();
             }
              
-            //Replacing oldString with newString in the oldContent
-             for (int i=0;i<LineToBeUpdated.size();i++) {
+             
+             for (int i=0;i< LineToBeUpdated.size();i++) {
                 
-             newContent = oldContent.replaceAll(LineToBeUpdated.get(i), UpdatedValue.get(i));
-                 
+             newContent = oldContent.replace(LineToBeUpdated.get(i), UpdatedValue.get(i));
+             oldContent = newContent;    
             }
              
             //Rewriting the input text file with newContent
@@ -91,6 +92,9 @@ public class FileFacade {
                 e.printStackTrace();
             }
         }
+
+
+
     }
     public void remove(String FilePath, ArrayList<String> linesToRemove){
     File inputFile = new File(FilePath);

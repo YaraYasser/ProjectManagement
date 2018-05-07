@@ -61,7 +61,7 @@ public class Projectmanager extends Member{
      LinesUpdated.add(instance.LocalChangedphone);
      LinesUpdated.add(instance.LocalChangedPassword);
      
-          facadeObject.UpdateFile(accessor.ManagerFilePath, LinesToBeUpdated, LinesUpdated);
+          facadeObject.UpdateFile(accessor.ManagerFilePath, LinesToBeUpdated, LinesUpdated,6);
           instance.ParentEmail =  LocalChangedEmail;
            instance.ParentPhone = instance.LocalChangedphone;
            instance.ParentPassword = instance.LocalChangedPassword;

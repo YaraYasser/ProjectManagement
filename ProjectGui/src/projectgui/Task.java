@@ -114,18 +114,18 @@ public class Task extends AbstractFunction{
 
     @Override
     public void update() {  
+        ArrayList<String> TasksOldData = new ArrayList<>();
         
-           ArrayList<String> LinesToBeUpdated = new ArrayList<String>();
-     LinesToBeUpdated.add(date_start);
-     LinesToBeUpdated.add(date_finish);
-     LinesToBeUpdated.add(status);
+        TasksOldData = facade.getDataByID(accessor.TaskPathFile,id, 6);        
+        ArrayList<String> UpdatedLines = new ArrayList<>();
+   UpdatedLines.add(id);
+   UpdatedLines.add(name);
+   UpdatedLines.add(date_start);
+   UpdatedLines.add(date_finish);
+   UpdatedLines.add(status);
+   UpdatedLines.add(MemberId);
      
-     ArrayList<String> LinesUpdated = new ArrayList<String>();
-     LinesUpdated.add(PrivateChanged_StartDate);
-     LinesUpdated.add(PrivateChanged_EndDate);
-     LinesUpdated.add(PrivateChanged_Status);
-     
-          facade.UpdateFile(accessor.TaskPathFile, LinesToBeUpdated, LinesUpdated);
+          facade.UpdateFile(accessor.TaskPathFile, TasksOldData, UpdatedLines,6);
         
             
     }
@@ -156,11 +156,6 @@ public class Task extends AbstractFunction{
     public String getMembersNames(String MemberID){
      return facade.getMemberName(accessor.NormalMemberFilePath, MemberID);
 
-    }
-    public void setDataToBeUpdated(ArrayList<String> ParChangedDataArrayList) {
-    PrivateChanged_StartDate = ParChangedDataArrayList.get(0);
-    PrivateChanged_EndDate = ParChangedDataArrayList.get(1);
-    PrivateChanged_Status = ParChangedDataArrayList.get(2);
     }
 
     @Override

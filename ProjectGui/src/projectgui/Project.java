@@ -75,7 +75,7 @@ public class Project extends AbstractFunction{
         NewLines.add(dep);
         NewLines.add(project_Tasks);
         NewLines.add(project_Desc);
-         facade.UpdateFile(accessor.ProjectFilePath, OldData, NewLines);
+         facade.UpdateFile(accessor.ProjectFilePath, OldData, NewLines,ProjectLinesInFileRequired);
      
     
     }

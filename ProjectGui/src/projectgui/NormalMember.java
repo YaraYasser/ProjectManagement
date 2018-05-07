@@ -57,7 +57,7 @@ public class NormalMember extends Member {
      LinesUpdated.add(instance.LocalChangedphone);
      LinesUpdated.add(instance.LocalChangedPassword);
      
-     facadeObject.UpdateFile(accessor.NormalMemberFilePath, LinesToBeUpdated, LinesUpdated);
+     facadeObject.UpdateFile(accessor.NormalMemberFilePath, LinesToBeUpdated, LinesUpdated,6);
       instance.ParentEmail =  LocalChangedEmail;
      instance.ParentPhone = instance.LocalChangedphone;
      instance.ParentPassword = instance.LocalChangedPassword;

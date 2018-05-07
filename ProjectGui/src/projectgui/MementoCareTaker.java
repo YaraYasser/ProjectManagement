@@ -16,8 +16,8 @@ public class MementoCareTaker {
     private final LinkedList<Memento> UserRemovedActions;
 
     public MementoCareTaker() {
-    UserActions = new LinkedList<Memento>();
-    UserRemovedActions = new LinkedList<Memento>();
+    UserActions = new LinkedList<>();
+    UserRemovedActions = new LinkedList<>();
     }
     
  public void Save(AbstractFunction action,String ActionType){
