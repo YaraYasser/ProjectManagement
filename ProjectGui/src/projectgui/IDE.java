@@ -27,6 +27,8 @@ public class IDE  extends Software{
     String CompilerLanguage;
      String ide="null";
      String id;
+     FileFacade facade = new FileFacade();
+     protected StringAccessor accessor = new StringAccessor();
      public IDE(String ide,String id)
     {
         this.ide=ide;
@@ -35,71 +37,22 @@ public class IDE  extends Software{
     @Override
     public void add() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         try{
-        Path p = Paths.get("C:\\Users\\lenovoo\\Desktop\\resource.txt");
-          File f=new File("C:\\Users\\lenovoo\\Desktop\\resource.txt");
-          FileWriter writer = new FileWriter(f.getAbsoluteFile(), true);
-           BufferedWriter bw=new BufferedWriter(writer);
-           bw.write(id);
-            bw.write(",");
-           bw.write(ide);
-           bw.newLine();
-           bw.close();
-           writer.close();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
+     ArrayList<String> arr = new ArrayList<String>();
+     arr.add(id);
+     arr.add(ide);
+     
+     facade.Add(accessor.ResourcePath, arr);
     }
 
     @Override
     public void update(String Id) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        ArrayList<String>Lines=new ArrayList<>();
-           File file =new File("C:\\Users\\lenovoo\\Desktop\\resource.txt");
-          BufferedReader br = null;
-      try {
-          br = new BufferedReader(new FileReader("C:\\Users\\lenovoo\\Desktop\\resource.txt"));
-      } catch (FileNotFoundException ex) {
-          Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
-      }
-          String str;
-      try {
-          while((str=br.readLine()) !=null)
-          {
-              
-              Lines.add(str);
-          }
-         // String UpadetString = Id + " OS ";
-             for (int i=0 ;i<Lines.size();i++)
-            {
-               String line=Lines.get(i).trim();
-               String[] datarow =line.split(",");
-               if(datarow[0].equals(Id))
-               {
-                   Lines.remove(i);
-               }   
-            }
-             PrintWriter Pwriter = new PrintWriter(file);
-          Pwriter.print("");
-           Pwriter.close();
-            
-          File f=new File("C:\\Users\\lenovoo\\Desktop\\resource.txt");
-          FileWriter writer = new FileWriter(f.getAbsoluteFile(), true);
-           BufferedWriter bw=new BufferedWriter(writer);
-            for(String x:Lines)
-            {
-                bw.write(x);
-                 bw.newLine();
-            }
-            bw.close();
-             
-      } catch (IOException ex) {
-          Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
-      }
+    ArrayList<String> arr = new ArrayList<String>();
+     arr.add(id);
+     arr.add(ide);
+     
+     facade.remove(accessor.ResourcePath, arr);
     }
 
-    @Override
-    public void delete(String Id) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }

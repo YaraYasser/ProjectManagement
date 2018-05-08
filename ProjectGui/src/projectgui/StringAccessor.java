@@ -20,6 +20,7 @@ public class StringAccessor {
     public String FileTaskManagerRelationPath = "/home/yara/Documents/4year/OODP/Project/ManagerTaskRelation.txt"; 
     public String TaskPathFile = "/home/yara/Documents/4year/OODP/Project/Task.txt";
     public String TempFilePath = "/home/yara/Documents/4year/OODP/Project/temp.txt";
+    public String ResourcePath = "/home/yara/Documents/4year/OODP/Project/resources.txt";
   
  
     

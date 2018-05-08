@@ -435,8 +435,7 @@
                               </Group>
                               <Component id="CheckBox_URL" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="Button_ResourceUpdate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                                   <Component id="Button_ResourceDelete" min="-2" pref="84" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -469,7 +468,6 @@
                   <EmptySpace pref="93" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Button_ResourceAdd" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="Button_ResourceUpdate" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="Button_ResourceDelete" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
@@ -510,6 +508,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="IDE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBox_IDEActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="CheckBox_Memory">
           <Properties>
@@ -521,21 +522,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="ADD"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ResourceAddActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="CheckBox_URL">
           <Properties>
             <Property name="text" type="java.lang.String" value="URL"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="Button_ResourceUpdate">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Update"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="Button_ResourceDelete">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ResourceDeleteActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

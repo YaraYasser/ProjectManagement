@@ -5,11 +5,14 @@
  */
 package projectgui;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author yara
  */
 public class AbstractDeveloper {
     protected int next_crteria;
+    public ArrayList get_developer(){return null;}
     
 }

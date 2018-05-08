@@ -20,40 +20,32 @@ import java.util.logging.Logger;
  */
 public class Member_Developer extends AbstractDeveloper{
    
-    @Override
-    public void set_next_crteria() {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    StringAccessor access=new StringAccessor();
+    FileFacade facade =new  FileFacade();
+
+    public Member_Developer() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+   
+    @Override
     public ArrayList get_developer() 
     {
+        
         ArrayList<String>Lines=new ArrayList<>();
-    ArrayList<String>IDS=new ArrayList<>(); 
+    ArrayList<String>RIDS=new ArrayList<>(); 
         ArrayList<String>Final=new ArrayList<>();
-        File file =new File("C:\\Users\\lenovoo\\Desktop\\resource.txt");
-          BufferedReader br = null;  
-       try {
-           br = new BufferedReader(new FileReader("C:\\Users\\lenovoo\\Desktop\\member.txt"));
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(Member_Developer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-          String str;   
-       try {
-           while((str=br.readLine()) !=null)
-           {
-               Lines.add(str);
-           }
-       } catch (IOException ex) {
-           Logger.getLogger(Member_Developer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-          for(int i=0;i<Lines.size();i=i+9)
+     String ss=access.NormalMemberFilePath;
+   //  RIDS= facade.ge(ss);
+     RIDS =facade.getfile(ss);
+     for(int i=0;i<RIDS.size();i=i+6)
           {
-              IDS.add(Lines.get(i)+"\r\n");
+              Lines.add(RIDS.get(i)+"\r\n");
              
           }
           Available_developer devobject=new Available_developer();
        
        try {
-           Final= devobject.get_availableMember(IDS);
+           Final= devobject.get_developer(Lines);
        } catch (IOException ex) {
            Logger.getLogger(Member_Developer.class.getName()).log(Level.SEVERE, null, ex);
        }

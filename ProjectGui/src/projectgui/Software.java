@@ -13,5 +13,10 @@ import projectgui.CommandInterface;
  * @author yara
  */
 public abstract class Software extends Resource{
+    @Override
+    public abstract void add();
+
+    @Override
+    public abstract void update(String Id);
     
 }

@@ -11,6 +11,12 @@ import projectgui.Resource;
  *
  * @author yara
  */
-public class HardWare extends Resource{
+public abstract class HardWare extends Resource{
+
+   @Override
+    public abstract void add();
+
+    @Override
+    public abstract void update(String Id);
     
 }

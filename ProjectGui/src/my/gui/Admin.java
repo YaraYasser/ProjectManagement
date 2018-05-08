@@ -33,6 +33,15 @@ public class Admin extends javax.swing.JFrame {
         jComboBox_UserType.addItem(StringsAccess.ManagerType);
         
         jComboBox_UserType.addItem(StringsAccess.MemberType);
+        AbstractDeveloper objj =new Member_Developer();
+        ArrayList<String>ll = objj.get_developer();
+        
+        DefaultTableModel model=(DefaultTableModel)IDS.getModel();   
+        for(int i=0 ;i<ll.size();i++)
+        {
+        String str[]=new String[]{ll.get(i)};
+        model.addRow(str);
+        }
         
     }
 
@@ -73,17 +82,18 @@ public class Admin extends javax.swing.JFrame {
         jTextField_MemberID = new javax.swing.JTextField();
         jComboBox_UserType = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        IDS = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        CheckBox_OS = new javax.swing.JCheckBox();
+        CheckBox_IDE = new javax.swing.JCheckBox();
+        CheckBox_URL = new javax.swing.JCheckBox();
+        CheckBox_Memory = new javax.swing.JCheckBox();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButtonDeleteMyself = new javax.swing.JButton();
         TextField_NewEmail = new javax.swing.JTextField();
@@ -259,6 +269,16 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel18.setText("Member Type");
 
+        IDS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Member_Available_ID"
+            }
+        ));
+        jScrollPane1.setViewportView(IDS);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -279,7 +299,7 @@ public class Admin extends javax.swing.JFrame {
                                     .addComponent(jTextField_MemberTaskID, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jButton_DeleteMemberFromTask)
-                                        .addGap(0, 103, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jTextField_MemberID, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -287,7 +307,11 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(90, 90, 90))
+                .addGap(470, 470, 470))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +334,9 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_AddMemberToTask)
                     .addComponent(jButton_DeleteMemberFromTask))
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addGap(66, 66, 66)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -319,8 +345,8 @@ public class Admin extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(336, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,19 +365,27 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel16.setText("HW");
 
-        jCheckBox1.setText("OS");
+        CheckBox_OS.setText("OS");
 
-        jCheckBox2.setText("IDE");
+        CheckBox_IDE.setText("IDE");
 
-        jCheckBox3.setText("URL");
+        CheckBox_URL.setText("URL");
 
-        jCheckBox4.setText("Memory");
+        CheckBox_Memory.setText("Memory");
 
         jButton7.setText("ADD");
-
-        jButton8.setText("Update");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("DELETE");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -360,34 +394,33 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel16))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
+                                .addContainerGap()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jCheckBox4))
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox3)))
+                                .addComponent(jLabel16))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(CheckBox_OS)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(CheckBox_Memory))
+                                    .addComponent(CheckBox_IDE)
+                                    .addComponent(CheckBox_URL))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
+                        .addContainerGap()
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton9)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton8)
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,19 +435,17 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox4))
+                    .addComponent(CheckBox_OS)
+                    .addComponent(CheckBox_Memory))
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox2)
+                .addComponent(CheckBox_IDE)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox3)
+                .addComponent(CheckBox_URL)
                 .addGap(65, 65, 65)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addGap(27, 27, 27)
-                .addComponent(jButton9)
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(jButton9))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButtonDeleteMyself.setText("DELETEMyself");
@@ -508,15 +539,15 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
                                 .addComponent(jButtonRedo)
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(Label_MemberNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -791,6 +822,57 @@ public class Admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton_DeleteMemberFromTaskActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        String task_id=jTextField_TaskID.getText();
+                    if(CheckBox_OS.isSelected())         
+                        {
+                           Resource resobject=new OS("OS",task_id);
+                            resobject.add();
+                        }
+                    if(CheckBox_IDE.isSelected())
+                        {
+                            Resource resobject=new IDE("IDE",task_id);
+                            resobject.add();
+                        }
+                    if(CheckBox_URL.isSelected())
+                    {
+                         Resource resobject=new URL("URL",task_id);
+                        resobject.add();
+                    }
+                if(CheckBox_Memory.isSelected())
+                    {
+                         Resource resobject=new Memory("Memory",task_id);
+                        resobject.add();
+                    }
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        String task_id=jTextField_TaskID.getText();
+        if(CheckBox_OS.isSelected())         
+         {
+            Resource resobject=new OS("OS",task_id);
+            resobject.update(task_id);
+         }
+                    if(CheckBox_IDE.isSelected())
+                        {
+                            Resource resobject=new IDE("IDE",task_id);
+                            resobject.update(task_id);
+                        }
+                    if(CheckBox_URL.isSelected())
+                    {
+                         Resource resobject=new URL("URL",task_id);
+                         resobject.update(task_id);
+                    }
+                if(CheckBox_Memory.isSelected())
+                    {
+                         Resource resobject=new Memory("Memory",task_id);
+                        resobject.update(task_id);
+                    }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -829,6 +911,11 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_ChangeInfo;
+    private javax.swing.JCheckBox CheckBox_IDE;
+    private javax.swing.JCheckBox CheckBox_Memory;
+    private javax.swing.JCheckBox CheckBox_OS;
+    private javax.swing.JCheckBox CheckBox_URL;
+    private javax.swing.JTable IDS;
     private javax.swing.JLabel Label_MemberNumber2;
     private javax.swing.JLabel Label_MemberNumber3;
     private javax.swing.JLabel Label_MemberNumber4;
@@ -838,7 +925,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextField TextField_NewPassword;
     private javax.swing.JTextField TextField_NewPhone;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonDeleteMyself;
     private javax.swing.JButton jButtonRedo;
@@ -850,10 +936,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton_ProjectBoard;
     private javax.swing.JButton jButton_UpdateTaskInfo;
     private javax.swing.JButton jButton_getTaskMembers;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox<String> jComboBox_UserType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -874,6 +956,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_ShowTasks;
     private javax.swing.JTextField jTextField_EndDate;

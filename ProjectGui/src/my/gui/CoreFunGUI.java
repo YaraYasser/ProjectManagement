@@ -88,7 +88,6 @@ public class CoreFunGUI extends javax.swing.JFrame
         CheckBox_Memory = new javax.swing.JCheckBox();
         Button_ResourceAdd = new javax.swing.JButton();
         CheckBox_URL = new javax.swing.JCheckBox();
-        Button_ResourceUpdate = new javax.swing.JButton();
         Button_ResourceDelete = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -295,17 +294,30 @@ public class CoreFunGUI extends javax.swing.JFrame
         CheckBox_OS.setText("OS");
 
         CheckBox_IDE.setText("IDE");
+        CheckBox_IDE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBox_IDEActionPerformed(evt);
+            }
+        });
 
         CheckBox_Memory.setSelected(true);
         CheckBox_Memory.setText("Memory");
 
         Button_ResourceAdd.setText("ADD");
+        Button_ResourceAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ResourceAddActionPerformed(evt);
+            }
+        });
 
         CheckBox_URL.setText("URL");
 
-        Button_ResourceUpdate.setText("Update");
-
         Button_ResourceDelete.setText("Delete");
+        Button_ResourceDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ResourceDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -337,8 +349,7 @@ public class CoreFunGUI extends javax.swing.JFrame
                                 .addComponent(CheckBox_Memory))
                             .addComponent(CheckBox_URL)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Button_ResourceUpdate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(75, 75, 75)
                                 .addComponent(Button_ResourceDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -363,7 +374,6 @@ public class CoreFunGUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_ResourceAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_ResourceUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_ResourceDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69))
         );
@@ -609,7 +619,6 @@ public class CoreFunGUI extends javax.swing.JFrame
         careTaker.Save(AbstractObject,"DeleteTask");
         AbstractObject =new Task(TextField_TaskID.getText(),TextField_TaskName.getText(),TextFieldFromDate.getText(),TextFieldToDate.getText(),TextField_Status.getText(),TextField_MemberNumber.getText());
         AbstractObject.remove();
-        AbstractObject.remove();
         DefaultTableModel model=(DefaultTableModel)jTable_ShowTasks.getModel();  
         int RowNumber = Integer.valueOf(TextField_TaskID.getText()) -1;
         model.removeRow(RowNumber);
@@ -697,6 +706,61 @@ public class CoreFunGUI extends javax.swing.JFrame
          
     }//GEN-LAST:event_jButtonRedoActionPerformed
 
+    private void CheckBox_IDEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_IDEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBox_IDEActionPerformed
+
+    private void Button_ResourceAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ResourceAddActionPerformed
+        // TODO add your handling code here:
+        String task_id=TextField_TaskID.getText();
+                    if(CheckBox_OS.isSelected())         
+                        {
+                           Resource resobject=new OS("OS",task_id);
+                            resobject.add();
+                        }
+                    if(CheckBox_IDE.isSelected())
+                        {
+                            Resource resobject=new IDE("IDE",task_id);
+                            resobject.add();
+                        }
+                    if(CheckBox_URL.isSelected())
+                    {
+                         Resource resobject=new URL("URL",task_id);
+                        resobject.add();
+                    }
+                if(CheckBox_Memory.isSelected())
+                    {
+                         Resource resobject=new Memory("Memory",task_id);
+                        resobject.add();
+                    }
+        
+    }//GEN-LAST:event_Button_ResourceAddActionPerformed
+
+    private void Button_ResourceDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ResourceDeleteActionPerformed
+        // TODO add your handling code here:
+        String task_id=TextField_TaskID.getText();
+        if(CheckBox_OS.isSelected())         
+         {
+            Resource resobject=new OS("OS",task_id);
+            resobject.update(task_id);
+         }
+                    if(CheckBox_IDE.isSelected())
+                        {
+                            Resource resobject=new IDE("IDE",task_id);
+                            resobject.update(task_id);
+                        }
+                    if(CheckBox_URL.isSelected())
+                    {
+                         Resource resobject=new URL("URL",task_id);
+                         resobject.update(task_id);
+                    }
+                if(CheckBox_Memory.isSelected())
+                    {
+                         Resource resobject=new Memory("Memory",task_id);
+                        resobject.update(task_id);
+                    }
+    }//GEN-LAST:event_Button_ResourceDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -740,7 +804,6 @@ public class CoreFunGUI extends javax.swing.JFrame
     private javax.swing.JButton Button_ChangeInfo;
     private javax.swing.JButton Button_ResourceAdd;
     private javax.swing.JButton Button_ResourceDelete;
-    private javax.swing.JButton Button_ResourceUpdate;
     private javax.swing.JButton Button_TaskAdd;
     private javax.swing.JButton Button_TaskDelete;
     private javax.swing.JButton Button_TaskUpdate;
