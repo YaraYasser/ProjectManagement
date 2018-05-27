@@ -18,43 +18,48 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectgui.Software;
 
 /**
  *
- * @author lenovoo
+ * @author yara
  */
-public class URL extends Software {
-    
-
-    String url;
-    String id;
-    FileFacade facade = new FileFacade();
+    public class OS extends Software{
+    String License;
+     String os="null";
+     FileFacade facade = new FileFacade();
      protected StringAccessor accessor = new StringAccessor();
-
-     public URL(String url,String id)
+  
+  String id;
+     public OS(String os,String id)
     {
-        this.url=url;
+        this.os=os;
         this.id=id;
     }
+
     @Override
     public void add() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        ArrayList<String> arr = new ArrayList<String>();
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
+     ArrayList<String> arr = new ArrayList<String>();
      arr.add(id);
-     arr.add(url);
+     arr.add(os);
      
-     facade.Add(accessor.ResourcePath, arr); 
+     facade.Add(accessor.ResourcePath, arr);
+    
     }
 
     @Override
     public void update(String Id) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        ArrayList<String> arr = new ArrayList<String>();
+        
+
+     ArrayList<String> arr = new ArrayList<String>();
      arr.add(id);
-     arr.add(url);
-     
-     facade.remove(accessor.ResourcePath, arr); 
+   
+     facade.remove(accessor.ResourcePath, arr);
     }
 
-    
 }
+
+
+
+   

@@ -20,9 +20,11 @@ public class Available_developer extends AbstractDeveloper{
 
     StringAccessor access=new StringAccessor();
     FileFacade facade =new  FileFacade();
+
  
-    public ArrayList get_developer(ArrayList<String> Lines) throws FileNotFoundException, IOException
-    {
+   
+    public ArrayList get_availableMember(ArrayList<String> Lines) throws FileNotFoundException, IOException
+{
          ArrayList<String>T_MR=new ArrayList<>();
         ArrayList<String>T_M=new ArrayList<>();
         ArrayList<String>res=new ArrayList<>();

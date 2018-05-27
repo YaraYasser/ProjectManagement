@@ -22,12 +22,7 @@ public class Member_Developer extends AbstractDeveloper{
    
     StringAccessor access=new StringAccessor();
     FileFacade facade =new  FileFacade();
-
-    public Member_Developer() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
    
-    @Override
     public ArrayList get_developer() 
     {
         
@@ -37,7 +32,7 @@ public class Member_Developer extends AbstractDeveloper{
      String ss=access.NormalMemberFilePath;
    //  RIDS= facade.ge(ss);
      RIDS =facade.getfile(ss);
-     for(int i=0;i<RIDS.size();i=i+6)
+     for(int i=0;i<RIDS.size();i=i+9)
           {
               Lines.add(RIDS.get(i)+"\r\n");
              
@@ -53,6 +48,29 @@ public class Member_Developer extends AbstractDeveloper{
        return Final;
       
            
+          
+    }
+    public void get_Task() throws IOException
+    {
+    
+           ArrayList<String>Lines=new ArrayList<>();
+    ArrayList<String>IDS=new ArrayList<>();
+        File file =new File("C:\\Users\\lenovoo\\Desktop\\Task.txt");
+          BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\lenovoo\\Desktop\\Task.txt"));  
+          String str;   
+          while((str=br.readLine()) !=null)
+          {         
+              Lines.add(str);
+          }
+          for(int i=0;i<Lines.size();i=i+6)
+          {
+              IDS.add(Lines.get(i)+",");
+               for(int j=i+5;j<=i+5;j++)
+                {
+                    IDS.add(Lines.get(j)+",");
+                }            
+          }
+             
           
     }
     
